@@ -10,7 +10,10 @@
 
 #define SRAM0 0x2007C000
 
-//function that generates samples of the signal to be outputed by the DAC
+/**
+ * Generates a signal by writing to a memory address in SRAM0.
+ * The register memory address is set to 0x1023 and the next one is set to 0x0000.
+ */
 void signal_generator(){
     uint16_t *mem_address = (uint16_t *) SRAM0;
     *mem_address = 0x1023;
@@ -25,6 +28,13 @@ void pin_config(){
     return;
 }
 
+/**
+ * Configures external interrupt 0 (EINT0) on pin P2.10.
+ * Sets the pin mode to pull-up resistor.
+ * Sets the interrupt mode to edge-sensitive.
+ * Sets the interrupt polarity to active high.
+ * Enables the interrupt in the NVIC.
+ */
 void eint_config(){
     LPC_PINCON->PINSEL4 |= (1<<20);
     LPC_PINCON->PINMODE4 |= (3<<20);
