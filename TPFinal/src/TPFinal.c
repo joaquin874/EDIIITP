@@ -8,6 +8,16 @@
 
 //#include <cr_section_macros.h>
 
+#define SRAM0 0x2007C000
+
+//function that generates samples of the signal to be outputed by the DAC
+void signal_generator(){
+    uint16_t *mem_address = (uint16_t *) SRAM0;
+    *mem_address = 0x1023;
+    mem_address++;
+    *mem_address = 0x0000;
+    return;
+}
 
 void pin_config(){
     LPC_GPIO1->FIODIR |= 0xFF0000;
@@ -84,9 +94,9 @@ void uart_config(){
 
 int main(void) {
     pin_config();
-    adc_config();
+    //adc_config();
     dac_config();
-    timer_config();
+    //timer_config();
     dma_config();
     while(1) {
         //TODO
