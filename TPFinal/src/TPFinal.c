@@ -42,7 +42,11 @@ void adc_config(){
 
 }
 */
-//function that configures the DAC to work with DMA
+
+/**
+ * Configures the DAC (Digital-to-Analog Converter) to output analog signals through pin P0.26.
+ * This function initializes the DAC, sets the clock for the DAC, and enables the DAC counter and DMA.
+ */
 void dac_config(){
     LPC_PINCON->PINSEL1 |= (2<<20);  //Config AOUT
     LPC_PINCON->PINMODE1 |= (2<<20);
@@ -54,15 +58,31 @@ void dac_config(){
     LPC_SC->PCLKSEL0 |= (1<<22);
     DAC_SetDMATimeOut(LPC_DAC, 100000000);
     DAC_ConfigDAConverterControl(LPC_DAC, &dacConfig);
-    return;
 }
-/*
+
+/**
+ * Configures Timer1 with a prescaler of 99 and a match value of 500000.
+ * This means the timer will interrupt every 0.5 seconds.
+ * Enables reset and interrupt on match value.
+ * Clears interrupt flags and enables Timer1 interrupt.
+ */
 void timer_config(){
-
+    LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
+    LPC_TIM0->PR = 99; //Prescaler = 99
+    LPC_TIM0->MR0 = 5000000;
+    LPC_TIM0->MCR |= (1<<1); //Reset on MR0
+    LPC_TIM0->EMR |= (1<<0); //Toggle on MR0
+    LPC_TIM0->EMR |= (0x03<<4); //Toggle on MR0
+    LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
+    LPC_TIM0->TCR &=~ 0x02; //Deshabilito el reset del timer0
 }
-*/
 
-//function that configures a dma channel to transfer data from a memory location to the DAC
+
+/**
+ * Configures the DMA controller to transfer data from SRAM0 to the DACR register of the LPC_DAC peripheral.
+ * Uses a linked list item (LLI) to define the transfer parameters.
+ * Initializes and sets up the GPDMA channel 0 with the defined parameters.
+ */
 void dma_config(){
     GPDMA_LLI_Type LLI;
     LLI.SrcAddr = (uint32_t) SRAM0;
