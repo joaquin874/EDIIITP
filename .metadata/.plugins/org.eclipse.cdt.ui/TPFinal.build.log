@@ -1,34 +1,11 @@
-18:22:18 **** Build of configuration Debug for project TPFinal ****
+19:01:14 **** Incremental Build of configuration Debug for project TPFinal ****
 make -r -j12 all 
-Building file: ../src/TPFinal.c
-Building file: ../src/cr_startup_lpc175x_6x.c
-Invoking: MCU C Compiler
-Building file: ../src/crp.c
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/home/joaquin/Facultad/EDIII/TPFinal/TPFinal/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Drivers/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/TPFinal.d" -MT"src/TPFinal.o" -MT"src/TPFinal.d" -o "src/TPFinal.o" "../src/TPFinal.c"
-Invoking: MCU C Compiler
-Invoking: MCU C Compiler
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/home/joaquin/Facultad/EDIII/TPFinal/TPFinal/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Drivers/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/crp.d" -MT"src/crp.o" -MT"src/crp.d" -o "src/crp.o" "../src/crp.c"
-arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/home/joaquin/Facultad/EDIII/TPFinal/TPFinal/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Drivers/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/cr_startup_lpc175x_6x.d" -MT"src/cr_startup_lpc175x_6x.o" -MT"src/cr_startup_lpc175x_6x.d" -o "src/cr_startup_lpc175x_6x.o" "../src/cr_startup_lpc175x_6x.c"
-Finished building: ../src/crp.c
- 
-Finished building: ../src/cr_startup_lpc175x_6x.c
- 
-Finished building: ../src/TPFinal.c
- 
-Building target: TPFinal.axf
-Invoking: MCU Linker
-arm-none-eabi-gcc -nostdlib -L"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="TPFinal.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "TPFinal_Debug.ld" -o "TPFinal.axf" ./src/TPFinal.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o    -lCMSISv2p00_LPC17xx
-Memory region         Used Size  Region Size  %age Used
-       MFlash512:        1324 B       512 KB      0.25%
-        RamLoc32:          0 GB        32 KB      0.00%
-        RamAHB32:          0 GB        32 KB      0.00%
-Finished building target: TPFinal.axf
- 
+make[1]: Nothing to be done for 'main-build'.
 Performing post-build steps
 arm-none-eabi-size "TPFinal.axf"; # arm-none-eabi-objcopy -v -O binary "TPFinal.axf" "TPFinal.bin" ; # checksum -p LPC1769 -d "TPFinal.bin";
    text	   data	    bss	    dec	    hex	filename
-   1324	      0	      0	   1324	    52c	TPFinal.axf
+    768	      0	      0	    768	    300	TPFinal.axf
  
 
-18:22:18 Build Finished. 0 errors, 0 warnings. (took 434ms)
+19:01:14 Build Finished. 0 errors, 0 warnings. (took 340ms)
 

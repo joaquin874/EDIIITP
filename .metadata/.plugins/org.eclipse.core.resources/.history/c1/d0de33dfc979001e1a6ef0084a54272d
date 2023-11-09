@@ -1,0 +1,120 @@
+/*
+ * TP FINAL EDII
+ */
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+#include "LPC17xx.h"
+#include "lpc17xx_gpdma.h"
+#include "lpc17xx_dac.h"
+
+#include <cr_section_macros.h>
+
+
+void pin_config(){
+
+}
+
+void adc_config(){
+
+}
+
+void dac_config(){
+
+}
+
+void timer_config(){
+
+}
+
+void dma_config(){
+
+}
+
+void uart_config(){
+
+}
+
+#define SRAM0_0 0x2007C000
+#define SRAM0_1 0x2007E000
+
+GPDMA_LLI_Type LLI1;
+
+void waveFormGenerator(void){//
+    static uint16_t value = 511;
+    uint8_t edge = 1; //1 = rising y 2 = falling
+    uint32_t *address1 = (uint32_t *) SRAM0_0;
+    int i = 0;
+    while(i < (SRAM0_1-SRAM0_0)){
+        *address1 = (value<<6);
+        if(edge == 1){
+            value++;
+            if(value >= 1024){
+                edge = 2;
+                value = 0;
+            }
+        }
+        else if(edge == 2){
+            value++;
+            if(value == 511){
+                edge = 1;
+            }
+        }
+        address1++;
+        i++;
+    }
+    return;
+}
+
+void configDMA(void){
+        GPDMA_Init();
+    //Channel 1 MEM-DAC Triangular
+	GPDMA_Channel_CFG_Type GPDMACfg1;
+	GPDMACfg1.ChannelNum = 1;
+	GPDMACfg1.SrcMemAddr = (uint32_t)SRAM0_1;
+	GPDMACfg1.DstMemAddr = 0;
+	GPDMACfg1.TransferSize = 0x399;
+	GPDMACfg1.TransferWidth = 0;
+	GPDMACfg1.TransferType = GPDMA_TRANSFERTYPE_M2P;
+	GPDMACfg1.SrcConn = 0;
+	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
+	GPDMACfg1.DMALLI = (uint32_t)&LLI1;
+	GPDMA_Setup(&GPDMACfg1);
+    return;
+}
+
+void configDAC(void){
+    LPC_PINCON->PINSEL1 |= (2<<20);  //Config AOUT
+    LPC_PINCON->PINMODE1 |= (2<<20);
+    DAC_CONVERTER_CFG_Type dacConfig;
+    dacConfig.CNT_ENA = SET;
+    dacConfig.DMA_ENA = SET;
+
+    DAC_Init(LPC_DAC);
+    DAC_SetDMATimeOut(LPC_DAC, 61400);
+    DAC_ConfigDAConverterControl(LPC_DAC, &dacConfig);
+    return;
+}
+
+int main(void){
+    waveFormGenerator();
+    configDMA();
+    configDAC();
+    while(1){
+
+    }
+    return 0;
+}
+//int main(void) {
+//    pin_config();
+//    adc_config();
+//    dac_config();
+//    timer_config();
+//    dma_config();
+//    while(1) {
+//        //TODO
+//    }
+//    return 0 ;
+//}
+
