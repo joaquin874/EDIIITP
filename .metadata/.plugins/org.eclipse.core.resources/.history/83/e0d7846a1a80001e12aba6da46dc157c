@@ -2,6 +2,7 @@
  * TP FINAL EDII
  */
 
+
 #include "LPC17xx.h"
 #include "lpc17xx_gpdma.h"
 #include "lpc17xx_adc.h"
@@ -22,13 +23,13 @@
 //    return;
 //}
 
-void pin_config(void){
+void pin_config(){
     LPC_GPIO1->FIODIR |= 0xFF0000;
     LPC_PINCON->PINSEL4 |= ( (1<<20));
     return;
 }
 
-void eint_config(void){
+void eint_config(){
     LPC_PINCON->PINSEL4 |= (1<<20);
     LPC_PINCON->PINMODE4 |= (3<<20);
 
@@ -41,7 +42,7 @@ void eint_config(void){
 }
 
 
-void adc_config(void){
+void adc_config(){
 	ADC_Init(LPC_ADC, 200000);
     ADC_BurstCmd(LPC_ADC, DISABLE);
     ADC_PowerdownCmd(LPC_ADC, ENABLE);
@@ -55,7 +56,7 @@ void adc_config(void){
  /* Configures the DAC (Digital-to-Analog Converter) to output analog signals through pin P0.26.
  * This function initializes the DAC, sets the clock for the DAC, and enables the DAC counter and DMA.
  */
-void dac_config(void){
+void dac_config(){
     LPC_PINCON->PINSEL1 |= (2<<20);  //Config AOUT
     LPC_PINCON->PINMODE1 |= (2<<20);
     DAC_CONVERTER_CFG_Type dacConfig;
@@ -74,7 +75,7 @@ void dac_config(void){
  * Enables reset and interrupt on match value.
  * Clears interrupt flags and enables Timer1 interrupt.
  */
-void timer_config(void){
+void timer_config(){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
     LPC_TIM0->PR = 99; //Prescaler = 99
     LPC_TIM0->MR1 = 5000000;
@@ -91,7 +92,7 @@ void timer_config(void){
  * Uses a linked list item (LLI) to define the transfer parameters.
  * Initializes and sets up the GPDMA channel 0 with the defined parameters.
  */
-void dma_config(void){
+void dma_config(){
     GPDMA_LLI_Type LLI;
     LLI.SrcAddr = (uint32_t) SRAM0;
     LLI.DstAddr = (uint32_t) &LPC_DAC->DACR;
