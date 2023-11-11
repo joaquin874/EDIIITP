@@ -113,7 +113,7 @@ void timer_config(void){
 void dma_config(void){
     GPDMA_LLI_Type LLI;
     LLI.SrcAddr = (uint32_t) SRAM0;
-    LLI.DstAddr = (uint32_t) & LPC_DAC->DACR;
+    LLI.DstAddr = (uint32_t) &LPC_DAC->DACR;
     LLI.NextLLI = (uint32_t) &LLI;
     LLI.Control = 0x02
 				|(2<<18) //source width 32 bits
