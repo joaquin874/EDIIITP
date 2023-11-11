@@ -12,15 +12,7 @@
 #include <cr_section_macros.h>
 
 #define SRAM0 0x2007C000
-//
-////function that generates samples of the signal to be outputed by the DAC
-//void signal_generator(){
-//    uint16_t *mem_address = (uint16_t *) SRAM0;
-//    *mem_address = 0x1023;
-//    mem_address++;
-//    *mem_address = 0x0000;
-//    return;
-//}
+#define BaudRate 38400
 
 /**
  * Generates a signal by writing to a memory address in SRAM0.
@@ -60,12 +52,17 @@ void eint_config(){
 }
 
 
+/**
+ * This function initializes the ADC module with a frequency of 200kHz, disables burst mode,
+ * powers down the ADC, enables channel 0, starts conversion on 8 channels and configures the
+ * start edge as falling edge.
+ */
 void adc_config(void){
 	ADC_Init(LPC_ADC, 200000);
     ADC_BurstCmd(LPC_ADC, DISABLE);
     ADC_PowerdownCmd(LPC_ADC, ENABLE);
     ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
-    ADC_StartCmd(LPC_ADC, 8);
+    ADC_StartCmd(LPC_ADC, 4);
     ADC_EdgeStartConfig(LPC_ADC, 0);
     return;
 }
@@ -98,7 +95,6 @@ void timer_config(void){
     LPC_TIM0->PR = 99; //Prescaler = 99
     LPC_TIM0->MR1 = 5000000;
     LPC_TIM0->MCR |= (1<<1); //Reset on MR0
-    //LPC_TIM0->EMR |= (1<<0); //Toggle on MR0
     LPC_TIM0->EMR |= (0x03<<6); //Toggle on MR1
     LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
     LPC_TIM0->TCR &=~ 0x02; //Deshabilito el reset del timer0
@@ -134,12 +130,24 @@ void dma_config(void){
     GPDMA_ChannelCmd(1, ENABLE);
     return;
 }
-/*
+
+/**
+ * Configures UART2 to enable communication through TXD3 and RXD3 pins.
+ */
 void uart_config(){
-
+    LPC_PINCON->PINSEL0 |= 0x02; //TXD3
+    LPC_PINCON->PINSEL0 |= (0x02<<2); //RXD3
+    UART_CFG_Type UARTConfigStruct;
+    UART_ConfigStructInit(&UARTConfigStruct);
+	UART_TxCmd(LPC_UART2, ENABLE);
 }
-*/
 
+
+/**
+ * Interrupt handler for External Interrupt 0 (EINT0)
+ * 
+ * This function toggles the power state of the ADC module on every interrupt trigger.
+ */
 void EINT0_IRQHandler(void){
 	static uint16_t mode = 0;
     if(mode % 2 == 0){
