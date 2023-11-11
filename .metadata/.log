@@ -566,3 +566,12 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY com.nxp.mcuxpresso.core.datamodels 1 0 2023-11-10 19:10:04.459
 !MESSAGE Recreating part support. No part support available.
+!SESSION 2023-11-11 14:57:26.119 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.5
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.nxp.mcuxpresso.core.datamodels 1 0 2023-11-11 14:57:33.554
+!MESSAGE Recreating part support. No part support available.
