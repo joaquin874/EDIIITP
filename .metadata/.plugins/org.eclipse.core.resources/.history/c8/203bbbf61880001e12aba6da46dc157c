@@ -2,6 +2,7 @@
  * TP FINAL EDII
  */
 
+
 #include "LPC17xx.h"
 #include "lpc17xx_gpdma.h"
 #include "lpc17xx_adc.h"
@@ -9,23 +10,11 @@
 
 
 
-#include <cr_section_macros.h>
+//#include <cr_section_macros.h>
 
 #define SRAM0 0x2007C000
-//
-////function that generates samples of the signal to be outputed by the DAC
-//void signal_generator(){
-//    uint16_t *mem_address = (uint16_t *) SRAM0;
-//    *mem_address = 0x1023;
-//    mem_address++;
-//    *mem_address = 0x0000;
-//    return;
-//}
 
-/**
- * Generates a signal by writing to a memory address in SRAM0.
- * The register memory address is set to 0x1023 and the next one is set to 0x0000.
- */
+//function that generates samples of the signal to be outputed by the DAC
 void signal_generator(){
     uint16_t *mem_address = (uint16_t *) SRAM0;
     *mem_address = 0x1023;
@@ -40,13 +29,6 @@ void pin_config(){
     return;
 }
 
-/**
- * Configures external interrupt 0 (EINT0) on pin P2.10.
- * Sets the pin mode to pull-up resistor.
- * Sets the interrupt mode to edge-sensitive.
- * Sets the interrupt polarity to active high.
- * Enables the interrupt in the NVIC.
- */
 void eint_config(){
     LPC_PINCON->PINSEL4 |= (1<<20);
     LPC_PINCON->PINMODE4 |= (3<<20);
@@ -60,7 +42,7 @@ void eint_config(){
 }
 
 
-void adc_config(void){
+void adc_config(){
 	ADC_Init(LPC_ADC, 200000);
     ADC_BurstCmd(LPC_ADC, DISABLE);
     ADC_PowerdownCmd(LPC_ADC, ENABLE);
@@ -74,7 +56,7 @@ void adc_config(void){
  /* Configures the DAC (Digital-to-Analog Converter) to output analog signals through pin P0.26.
  * This function initializes the DAC, sets the clock for the DAC, and enables the DAC counter and DMA.
  */
-void dac_config(void){
+void dac_config(){
     LPC_PINCON->PINSEL1 |= (2<<20);  //Config AOUT
     LPC_PINCON->PINMODE1 |= (2<<20);
     DAC_CONVERTER_CFG_Type dacConfig;
@@ -93,7 +75,7 @@ void dac_config(void){
  * Enables reset and interrupt on match value.
  * Clears interrupt flags and enables Timer1 interrupt.
  */
-void timer_config(void){
+void timer_config(){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
     LPC_TIM0->PR = 99; //Prescaler = 99
     LPC_TIM0->MR1 = 5000000;
@@ -110,7 +92,7 @@ void timer_config(void){
  * Uses a linked list item (LLI) to define the transfer parameters.
  * Initializes and sets up the GPDMA channel 0 with the defined parameters.
  */
-void dma_config(void){
+void dma_config(){
     GPDMA_LLI_Type LLI;
     LLI.SrcAddr = (uint32_t) SRAM0;
     LLI.DstAddr = (uint32_t) &LPC_DAC->DACR;
@@ -149,8 +131,6 @@ void EINT0_IRQHandler(void){
         ADC_PowerdownCmd(LPC_ADC, ENABLE);
     }
     mode++;
-    LPC_SC->EXTINT = 1;
-    return;
 }
 
 int main(void) {
@@ -159,8 +139,6 @@ int main(void) {
     dac_config();
     //timer_config();
     dma_config();
-    //adc config
-    adc_config();
     while(1) {
         //TODO
     }
