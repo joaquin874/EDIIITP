@@ -6,6 +6,7 @@
 #include "lpc17xx_gpdma.h"
 #include "lpc17xx_adc.h"
 #include "lpc17xx_dac.h"
+#include "lpc17xx_uart.h"
 
 
 
@@ -23,12 +24,6 @@ void signal_generator(){
     *mem_address = 0x1023;
     mem_address++;
     *mem_address = 0x0000;
-    return;
-}
-
-void pin_config(){
-    LPC_GPIO1->FIODIR |= 0xFF0000;
-    LPC_PINCON->PINSEL4 |= ( (1<<20));
     return;
 }
 
@@ -60,10 +55,12 @@ void eint_config(){
 void adc_config(void){
 	ADC_Init(LPC_ADC, 200000);
     ADC_BurstCmd(LPC_ADC, DISABLE);
-    ADC_PowerdownCmd(LPC_ADC, ENABLE);
+    //ADC_PowerdownCmd(LPC_ADC, ENABLE);
     ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
-    ADC_StartCmd(LPC_ADC, 4);
+    ADC_StartCmd(LPC_ADC, ADC_START_ON_MAT01);
     ADC_EdgeStartConfig(LPC_ADC, 0);
+    ADC_IntConfig(LPC_ADC, 0, ENABLE);
+    NVIC_EnableIRQ(ADC_IRQn);
     return;
 }
 
@@ -84,6 +81,13 @@ void dac_config(void){
     DAC_ConfigDAConverterControl(LPC_DAC, &dacConfig);
 }
 
+void dac_config1(void){
+	LPC_PINCON->PINSEL1 |= (2<<20);  //Config AOUT
+	LPC_PINCON->PINMODE1 |= (2<<20);
+	DAC_Init(LPC_DAC);
+	return;
+}
+
 /**
  * Configures Timer1 with a prescaler of 99 and a match value of 500000.
  * This means the timer will interrupt every 0.5 seconds.
@@ -94,10 +98,12 @@ void timer_config(void){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
     LPC_TIM0->PR = 99; //Prescaler = 99
     LPC_TIM0->MR1 = 5000000;
-    LPC_TIM0->MCR |= (1<<1); //Reset on MR0
-    LPC_TIM0->EMR |= (0x03<<6); //Toggle on MR1
+    LPC_TIM0->MCR |= (1<<4); //Reset on MR1
+    LPC_TIM0->EMR |= (3<<6); //Toggle on MR1
     LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
     LPC_TIM0->TCR &=~ 0x02; //Deshabilito el reset del timer0
+    //LPC_TIM0->IR = 1;
+    //NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
 
@@ -138,7 +144,10 @@ void uart_config(){
     LPC_PINCON->PINSEL0 |= 0x02; //TXD3
     LPC_PINCON->PINSEL0 |= (0x02<<2); //RXD3
     UART_CFG_Type UARTConfigStruct;
+    UART_FIFO_CFG_Type UARTFIFOConfigStruct;
     UART_ConfigStructInit(&UARTConfigStruct);
+    UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
+    UART_FIFOConfig(LPC_UART2, &UARTFIFOConfigStruct);
 	UART_TxCmd(LPC_UART2, ENABLE);
 }
 
@@ -161,14 +170,29 @@ void EINT0_IRQHandler(void){
     return;
 }
 
+//
+void ADC_IRQHandler(void){
+	if(LPC_ADC->ADDR0 & (1<<31)){
+		uint16_t water_level = (LPC_ADC->ADDR0>>4);
+		DAC_UpdateValue(LPC_DAC, water_level);
+//		if(water_level > 1365){
+//			uint8_t string[] = "REFILL\n";
+//			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+//		}
+		//LPC_TIM0->EMR |= (1<<6);
+		LPC_ADC->ADGDR |= (1 << 31);
+	return;
+	}
+}
+
+void TIMER0_IRQHandler(void){
+
+}
 int main(void) {
-    pin_config();
-    //adc_config();
-    dac_config();
-    //timer_config();
-    dma_config();
-    //adc config
     adc_config();
+    dac_config1();
+    timer_config();
+    //dma_config();
     while(1) {
         //TODO
     }
