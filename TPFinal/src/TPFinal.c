@@ -15,21 +15,22 @@
 #define BaudRate 38400
 
 /**
- * Generates a signal by writing to a memory address in SRAM0.
- * The register memory address is set to 0x1023 and the next one is set to 0x0000.
+ * Generates a PWM signal by writing to a memory address in SRAM0.
+ * Based on the duty_cycle value, this function writes a 1 or a 0 to the memory address
+ * 100 times, in order to generate a PWM signal that can variate from a 1% to 100% duty cycle.
  */
-void signal_generator(){
-    uint16_t *mem_address = (uint16_t *) SRAM0;
-    *mem_address = 0x1023;
-    mem_address++;
-    *mem_address = 0x0000;
-    return;
-}
-
-void pin_config(){
-    LPC_GPIO1->FIODIR |= 0xFF0000;
-    LPC_PINCON->PINSEL4 |= ( (1<<20));
-    return;
+void pwm_generator(uint8_t duty_cycle){
+    uint32_t *mem_address = (uint32_t *) SRAM0;
+    uint8_t duty_index = 0;
+    for(duty_index = 0; duty_index < 100; duty_index++){
+        if(duty_index < duty_cycle){
+            *mem_address = (0x1023 << 6);
+        }
+        else{
+            *mem_address = 0x0000;
+        }
+        mem_address++;
+    }
 }
 
 /**
@@ -40,7 +41,7 @@ void pin_config(){
  * Enables the interrupt in the NVIC.
  */
 void eint_config(){
-    LPC_PINCON->PINSEL4 |= (1<<20);
+    LPC_PINCON->PINSEL4 |= (1<<20); //P2.10 as EINT0
     LPC_PINCON->PINMODE4 |= (3<<20);
 
     LPC_SC->EXTMODE = 1;
@@ -111,16 +112,16 @@ void dma_config(void){
     LLI.SrcAddr = (uint32_t) SRAM0;
     LLI.DstAddr = (uint32_t) &LPC_DAC->DACR;
     LLI.NextLLI = (uint32_t) &LLI;
-    LLI.Control = 0x02
-				|(2<<18) //source width 32 bits
-				|(2<<21) //dest width 32 bits
-                |(1<<26); //source increment
+    LLI.Control = 0x64      //transfer size 100 registers
+				|(2<<18)    //source width 32 bits
+				|(2<<21)    //dest width 32 bits
+                |(1<<26);   //source increment
     GPDMA_Init();
     GPDMA_Channel_CFG_Type GPDMACfg1;
     GPDMACfg1.ChannelNum = 0;
 	GPDMACfg1.SrcMemAddr = (uint32_t)SRAM0;
 	GPDMACfg1.DstMemAddr = 0;
-	GPDMACfg1.TransferSize = 0x02;
+	GPDMACfg1.TransferSize = 0x64;
 	GPDMACfg1.TransferWidth = 0;
 	GPDMACfg1.TransferType = GPDMA_TRANSFERTYPE_M2P;
 	GPDMACfg1.SrcConn = 0;
