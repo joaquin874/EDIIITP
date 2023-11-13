@@ -97,7 +97,7 @@ void dac_config1(void){
 void timer_config(void){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
     LPC_TIM0->PR = 99; //Prescaler = 99
-    LPC_TIM0->MR1 = 50000;
+    LPC_TIM0->MR1 = 5000000;
     LPC_TIM0->MCR |= (1<<4); //Reset on MR1
     LPC_TIM0->EMR |= (3<<6); //Toggle on MR1
     LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
@@ -180,10 +180,9 @@ void ADC_IRQHandler(void){
 //			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 //		}
 		//LPC_TIM0->EMR |= (1<<6);
-		//LPC_ADC->ADGDR |= (1 << 31);
-
-	}
+		LPC_ADC->ADGDR |= (1 << 31);
 	return;
+	}
 }
 
 void TIMER0_IRQHandler(void){

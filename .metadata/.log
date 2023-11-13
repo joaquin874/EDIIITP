@@ -877,3 +877,41 @@ Command-line arguments:  -data /home/joaquin/Facultad/EDIII/TPFinal -os linux -w
 
 !ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 20:00:45.857
 !MESSAGE Unable to parse ProbeList output to get probe ref count: []
+
+!ENTRY com.crt.log 1 0 2023-11-13 20:03:37.838
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 20:03:38.840
+!MESSAGE RedlinkServer telnet session connected on port 3025->37616 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 20:03:50.418
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY [ERROR] [com.nxp.mcuxpresso.core.debug.support.linkserver] 0 0 2023-11-13 20:03:50.710
+!MESSAGE 0x301, No probes found
+
+!ENTRY com.crt.log 1 0 2023-11-13 20:03:51.030
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=40621, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 20:03:52.085
+!MESSAGE Telnet session connected on port 3330->49926 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 20:07:39.226
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 20:07:40.228
+!MESSAGE RedlinkServer telnet session connected on port 3025->51614 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 20:07:49.872
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY [ERROR] [com.nxp.mcuxpresso.core.debug.support.linkserver] 0 0 2023-11-13 20:07:50.170
+!MESSAGE 0x301, No probes found
+
+!ENTRY com.crt.log 1 0 2023-11-13 20:07:50.536
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=37171, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 20:07:51.591
+!MESSAGE Telnet session connected on port 3330->39308 @ 127.0.0.1
