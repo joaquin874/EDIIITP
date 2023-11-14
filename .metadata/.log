@@ -915,3 +915,663 @@ Command-line arguments:  -data /home/joaquin/Facultad/EDIII/TPFinal -os linux -w
 
 !ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 20:07:51.591
 !MESSAGE Telnet session connected on port 3330->39308 @ 127.0.0.1
+!SESSION 2023-11-13 20:16:00.358 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.5
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.nxp.mcuxpresso.core.datamodels 1 0 2023-11-13 20:16:06.854
+!MESSAGE Recreating part support. No part support available.
+!SESSION 2023-11-13 20:22:30.607 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.5
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.nxp.mcuxpresso.core.datamodels 1 0 2023-11-13 20:22:36.886
+!MESSAGE Recreating part support. No part support available.
+
+!ENTRY com.crt.log 1 0 2023-11-13 20:23:54.236
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 20:23:54.237
+!MESSAGE RedlinkServer telnet session connected on port 3025->36832 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 20:23:57.504
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 20:23:58.144
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=40491, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 20:23:59.171
+!MESSAGE Telnet session connected on port 3330->45666 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 20:24:54.536
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 20:24:54.536
+!MESSAGE 16: Target error from status-poll
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 20:24:54.536
+!MESSAGE Hardware Transfer Error
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 20:24:54.536
+!MESSAGE Debugging context: TPFinal LinkServer Debug
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2023-11-13 20:26:33.936
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.ImmediateRequestMonitor@ee86897): Status ERROR: org.eclipse.cdt.dsf.gdb code=10004 Failed to execute MI command:
+-exec-interrupt
+Error message from debugger back end:
+Stopping Thread 1 failed: T06thread:1; java.lang.Exception: Stopping Thread 1 failed: T06thread:1;' resulted in an error.
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10004 2023-11-13 20:26:33.936
+!MESSAGE Failed to execute MI command:
+-exec-interrupt
+Error message from debugger back end:
+Stopping Thread 1 failed: T06thread:1;
+!STACK 0
+java.lang.Exception: Stopping Thread 1 failed: T06thread:1;
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2023-11-13 20:26:34.390
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.gdb.service.GDBRunControl_7_0_NS$16@4140f73b): Status ERROR: org.eclipse.cdt.dsf.gdb code=10001 Connection is shut down' resulted in an error.
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10001 2023-11-13 20:26:34.390
+!MESSAGE Connection is shut down
+
+!ENTRY com.crt.log 1 0 2023-11-13 20:26:35.441
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 20:26:36.443
+!MESSAGE RedlinkServer telnet session connected on port 3025->54018 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 20:26:36.445
+!MESSAGE Unable to parse ProbeList output to get probe ref count: []
+!SESSION 2023-11-13 21:56:09.478 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.5
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.nxp.mcuxpresso.core.datamodels 1 0 2023-11-13 21:56:17.720
+!MESSAGE Recreating part support. No part support available.
+
+!ENTRY com.crt.log 1 0 2023-11-13 21:56:40.535
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 21:56:40.537
+!MESSAGE RedlinkServer telnet session connected on port 3025->59592 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 21:56:44.239
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 21:56:44.859
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=36787, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 21:56:45.921
+!MESSAGE Telnet session connected on port 3330->48794 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 21:57:43.329
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 21:57:44.332
+!MESSAGE RedlinkServer telnet session connected on port 3025->33022 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 21:57:47.425
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 21:57:48.057
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=35731, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 21:57:49.112
+!MESSAGE Telnet session connected on port 3330->48770 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 21:58:25.123
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 21:58:26.125
+!MESSAGE RedlinkServer telnet session connected on port 3025->46822 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 21:58:29.125
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 21:58:29.741
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=45195, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 21:58:30.758
+!MESSAGE Telnet session connected on port 3330->32786 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:00:32.521
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:00:33.523
+!MESSAGE RedlinkServer telnet session connected on port 3025->49038 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:00:36.295
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:00:36.869
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=34531, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:00:37.924
+!MESSAGE Telnet session connected on port 3330->40810 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:03:43.170
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:03:44.172
+!MESSAGE RedlinkServer telnet session connected on port 3025->42798 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:04:04.007
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY [ERROR] [com.nxp.mcuxpresso.core.debug.support.linkserver] 0 0 2023-11-13 22:04:04.303
+!MESSAGE 0x301, No probes found
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:04:04.625
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=38097, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:04:05.680
+!MESSAGE Telnet session connected on port 3330->44144 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:05:06.549
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:05:07.552
+!MESSAGE RedlinkServer telnet session connected on port 3025->40296 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:05:10.406
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:05:11.036
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=37673, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 4 -1 2023-11-13 22:05:17.977
+!MESSAGE Cannot invoke "com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkProbeStatus.setField(int, String[])" because "probeStatus" is null
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkProbeStatus.setField(int, String[])" because "probeStatus" is null
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkProbeStatus.parse(RedlinkProbeStatus.java:151)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:605)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:619)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.postConnect(RedlinkServerClient.java:289)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmuHandler.postConnect(RedlinkServerEmuHandler.java:182)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmu.postConnect(RedlinkServerEmu.java:126)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.TargetDiscovery.postConnectEmulator(TargetDiscovery.java:148)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.services.TargetDiscoveryService.postConnect(TargetDiscoveryService.java:125)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalTargetSelect(LSTargetConnectionSequence.java:573)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalCommonStep(LSTargetConnectionSequence.java:327)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScriptWithProgress(LSTargetConnectionSequence.java:709)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScript(LSTargetConnectionSequence.java:695)
+	at jdk.internal.reflect.GeneratedMethodAccessor78.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSReflectionSequence$ReflectionStep.execute(LSReflectionSequence.java:72)
+	at org.eclipse.cdt.dsf.concurrent.Sequence.executeStep(Sequence.java:475)
+	at org.eclipse.cdt.dsf.concurrent.Sequence$2.handleSuccess(Sequence.java:437)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleCompleted(RequestMonitor.java:391)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:317)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 4 4 2023-11-13 22:05:17.979
+!MESSAGE Cannot invoke "com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkProbeStatus.setField(int, String[])" because "probeStatus" is null
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkProbeStatus.setField(int, String[])" because "probeStatus" is null
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkProbeStatus.parse(RedlinkProbeStatus.java:151)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:605)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:619)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.postConnect(RedlinkServerClient.java:289)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmuHandler.postConnect(RedlinkServerEmuHandler.java:182)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmu.postConnect(RedlinkServerEmu.java:126)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.TargetDiscovery.postConnectEmulator(TargetDiscovery.java:148)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.services.TargetDiscoveryService.postConnect(TargetDiscoveryService.java:125)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalTargetSelect(LSTargetConnectionSequence.java:573)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalCommonStep(LSTargetConnectionSequence.java:327)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScriptWithProgress(LSTargetConnectionSequence.java:709)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScript(LSTargetConnectionSequence.java:695)
+	at jdk.internal.reflect.GeneratedMethodAccessor78.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSReflectionSequence$ReflectionStep.execute(LSReflectionSequence.java:72)
+	at org.eclipse.cdt.dsf.concurrent.Sequence.executeStep(Sequence.java:475)
+	at org.eclipse.cdt.dsf.concurrent.Sequence$2.handleSuccess(Sequence.java:437)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleCompleted(RequestMonitor.java:391)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:317)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkProbeStatus.parse(RedlinkProbeStatus.java:151)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:605)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:619)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.postConnect(RedlinkServerClient.java:289)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmuHandler.postConnect(RedlinkServerEmuHandler.java:182)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmu.postConnect(RedlinkServerEmu.java:126)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.TargetDiscovery.postConnectEmulator(TargetDiscovery.java:148)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.services.TargetDiscoveryService.postConnect(TargetDiscoveryService.java:125)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalTargetSelect(LSTargetConnectionSequence.java:573)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalCommonStep(LSTargetConnectionSequence.java:327)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScriptWithProgress(LSTargetConnectionSequence.java:709)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScript(LSTargetConnectionSequence.java:695)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at jdk.internal.reflect.GeneratedMethodAccessor78.invoke(Unknown Source)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSReflectionSequence$ReflectionStep.execute(LSReflectionSequence.java:72)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at org.eclipse.cdt.dsf.concurrent.Sequence.executeStep(Sequence.java:475)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at org.eclipse.cdt.dsf.concurrent.Sequence$2.handleSuccess(Sequence.java:437)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleCompleted(RequestMonitor.java:391)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:317)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.979
+!MESSAGE 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.980
+!MESSAGE 	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.980
+!MESSAGE 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.980
+!MESSAGE 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+!SUBENTRY 1 com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:17.980
+!MESSAGE 	at java.base/java.lang.Thread.run(Thread.java:833)
+
+!ENTRY com.crt.log 4 -1 2023-11-13 22:05:22.981
+!MESSAGE Exception
+!STACK 0
+java.lang.Exception: java.lang.InterruptedException
+	at com.crt.utils.general.Reporter.log(Reporter.java:591)
+	at com.crt.utils.general.SafeUIJobWithProgress.run(SafeUIJobWithProgress.java:92)
+	at com.crt.utils.general.Reporter.internalErrorDialog(Reporter.java:504)
+	at com.crt.utils.general.Reporter.internalErrorDialog(Reporter.java:476)
+	at com.crt.utils.general.Reporter.reportException(Reporter.java:767)
+	at com.crt.utils.general.Reporter.reportException(Reporter.java:715)
+	at com.crt.utils.general.AbstractCommonActivator.reportException(AbstractCommonActivator.java:410)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:607)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.getProbeStatus(RedlinkServerClient.java:619)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.redlink.client.RedlinkServerClient.postConnect(RedlinkServerClient.java:289)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmuHandler.postConnect(RedlinkServerEmuHandler.java:182)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.common.RedlinkServerEmu.postConnect(RedlinkServerEmu.java:126)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.emulators.TargetDiscovery.postConnectEmulator(TargetDiscovery.java:148)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.services.TargetDiscoveryService.postConnect(TargetDiscoveryService.java:125)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalTargetSelect(LSTargetConnectionSequence.java:573)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.internalCommonStep(LSTargetConnectionSequence.java:327)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScriptWithProgress(LSTargetConnectionSequence.java:709)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSTargetConnectionSequence.stepInitScript(LSTargetConnectionSequence.java:695)
+	at jdk.internal.reflect.GeneratedMethodAccessor78.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at com.nxp.mcuxpresso.core.debug.support.linkserver.override.LSReflectionSequence$ReflectionStep.execute(LSReflectionSequence.java:72)
+	at org.eclipse.cdt.dsf.concurrent.Sequence.executeStep(Sequence.java:475)
+	at org.eclipse.cdt.dsf.concurrent.Sequence$2.handleSuccess(Sequence.java:437)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleCompleted(RequestMonitor.java:391)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:317)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.lang.InterruptedException
+	at com.crt.utils.general.SafeUIJobWithProgress.waitForResult(SafeUIJobWithProgress.java:77)
+	at com.crt.utils.general.SafeUIJobWithProgress.run(SafeUIJobWithProgress.java:87)
+	... 30 more
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:05:23.023
+!MESSAGE Unable to parse ProbeList output to get probe ref count: [beunt = 0]
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:05:23.082
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:05:23.083
+!MESSAGE RedlinkServer telnet session connected on port 3025->41514 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:05:23.129
+!MESSAGE Telnet session connected on port 3330->44596 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:05:29.767
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:05:30.769
+!MESSAGE RedlinkServer telnet session connected on port 3025->41438 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:05:33.679
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:05:34.256
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=44197, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:05:35.262
+!MESSAGE Telnet session connected on port 3330->46986 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:05:58.506
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:05:59.508
+!MESSAGE RedlinkServer telnet session connected on port 3025->54120 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:06:02.460
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:06:03.045
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=34661, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:06:04.100
+!MESSAGE Telnet session connected on port 3330->39936 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:07:07.088
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:07:08.091
+!MESSAGE RedlinkServer telnet session connected on port 3025->45586 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:07:11.217
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:07:11.790
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=45203, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:07:12.797
+!MESSAGE Telnet session connected on port 3330->52336 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:10:32.767
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:10:33.773
+!MESSAGE RedlinkServer telnet session connected on port 3025->59792 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:10:54.129
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY [ERROR] [com.nxp.mcuxpresso.core.debug.support.linkserver] 0 0 2023-11-13 22:10:54.423
+!MESSAGE 0x301, No probes found
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:10:54.793
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=42077, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:10:55.849
+!MESSAGE Telnet session connected on port 3330->50518 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:12:32.874
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:12:33.876
+!MESSAGE RedlinkServer telnet session connected on port 3025->33214 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:12:36.937
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:12:37.556
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=46791, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:12:38.562
+!MESSAGE Telnet session connected on port 3330->59904 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:13:45.350
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:13:46.353
+!MESSAGE RedlinkServer telnet session connected on port 3025->35458 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:13:49.148
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:13:49.772
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=34763, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:13:50.828
+!MESSAGE Telnet session connected on port 3330->43504 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:15:29.822
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:15:30.824
+!MESSAGE RedlinkServer telnet session connected on port 3025->42682 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:15:33.674
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:15:34.293
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=37973, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:15:35.322
+!MESSAGE Telnet session connected on port 3330->51626 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:16:01.221
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:16:02.223
+!MESSAGE RedlinkServer telnet session connected on port 3025->37378 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:16:05.307
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:16:05.924
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=32891, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:16:06.979
+!MESSAGE Telnet session connected on port 3330->51840 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:17:17.756
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:17:18.758
+!MESSAGE RedlinkServer telnet session connected on port 3025->37368 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:17:21.811
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:17:22.428
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=45609, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:17:23.443
+!MESSAGE Telnet session connected on port 3330->47196 @ 127.0.0.1
+!SESSION 2023-11-13 22:18:38.609 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.5
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2023-11-13 22:18:40.460
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.nxp.mcuxpresso.core.datamodels 1 0 2023-11-13 22:18:47.106
+!MESSAGE Recreating part support. No part support available.
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:23:10.037
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:23:10.039
+!MESSAGE RedlinkServer telnet session connected on port 3025->50596 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:23:13.670
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:23:14.261
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=35957, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:23:15.271
+!MESSAGE Telnet session connected on port 3330->57602 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:23:36.261
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:23:37.264
+!MESSAGE RedlinkServer telnet session connected on port 3025->59734 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:23:40.417
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:23:41.037
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=34177, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:23:42.092
+!MESSAGE Telnet session connected on port 3330->37866 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 4 0 2023-11-13 22:25:31.583
+!MESSAGE Unable to parse ProbeList output to get probe ref count: []
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2023-11-13 22:25:31.587
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.ImmediateRequestMonitor@60268672): Status ERROR: org.eclipse.cdt.dsf.gdb code=10003 Given context: (gdb[1].proc[42000].threadGroup[i1],gdb[1].proc[42000].OSthread[1]).thread[1], is already suspended.' resulted in an error.
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10003 2023-11-13 22:25:31.587
+!MESSAGE Given context: (gdb[1].proc[42000].threadGroup[i1],gdb[1].proc[42000].OSthread[1]).thread[1], is already suspended.
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:26:09.647
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:26:10.650
+!MESSAGE RedlinkServer telnet session connected on port 3025->49808 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:26:25.877
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY [ERROR] [com.nxp.mcuxpresso.core.debug.support.linkserver] 0 0 2023-11-13 22:26:26.171
+!MESSAGE 0x301, No probes found
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:26:26.497
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=43777, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:26:27.551
+!MESSAGE Telnet session connected on port 3330->48826 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:27:26.988
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:27:27.990
+!MESSAGE RedlinkServer telnet session connected on port 3025->43174 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:27:30.964
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:27:31.589
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=33631, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:27:32.643
+!MESSAGE Telnet session connected on port 3330->55554 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:29:20.751
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:29:21.753
+!MESSAGE RedlinkServer telnet session connected on port 3025->52082 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:29:24.650
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:29:25.228
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=37559, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:29:26.284
+!MESSAGE Telnet session connected on port 3330->46588 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:30:47.788
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:30:48.790
+!MESSAGE RedlinkServer telnet session connected on port 3025->37346 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:30:51.419
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:30:52.001
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=46127, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:30:53.056
+!MESSAGE Telnet session connected on port 3330->48856 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:31:42.784
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:31:42.784
+!MESSAGE RedlinkServer telnet session connected on port 3025->47468 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:31:45.498
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:31:46.064
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=43607, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:31:47.071
+!MESSAGE Telnet session connected on port 3330->48156 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:32:13.186
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:32:14.188
+!MESSAGE RedlinkServer telnet session connected on port 3025->39042 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:32:17.061
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:32:17.649
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=36641, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:32:18.704
+!MESSAGE Telnet session connected on port 3330->39850 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:33:16.426
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:33:17.428
+!MESSAGE RedlinkServer telnet session connected on port 3025->33418 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-13 22:33:20.217
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-13 22:33:20.796
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=41881, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-13 22:33:21.810
+!MESSAGE Telnet session connected on port 3330->40476 @ 127.0.0.1

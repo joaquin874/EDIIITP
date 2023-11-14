@@ -1,0 +1,12 @@
+"Task Aware Debugger for GDB" version 11.8.0 (202306131047)
+Copyright 2016-2023 NXP
+==================================
+22:33:18.791 INFO: [ZephyrRTOS] .config file could not be read [/home/joaquin/Facultad/EDIII/TPFinal/TPFinal/Debug/.config (No such file or directory)]
+22:33:18.791 INFO: [TadModel] DSF session ID 8 has started.
+22:33:21.818 INFO: [TadState] TAD state changed: DEBUG_STARTED -> DEBUG_INIT_0 (RESUMED, USER_REQUEST)
+22:33:21.874 INFO: [TadState] TAD state changed: DEBUG_INIT_0 -> DEBUG_INIT_1 (SUSPENDED, SIGNAL)
+22:33:22.265 INFO: [TadState] TAD state changed: DEBUG_INIT_1 -> DEBUG_SUSPENDED (RESUMED, USER_REQUEST)
+22:33:22.335 INFO: [TadState] TAD state changed: DEBUG_SUSPENDED -> DEBUG_SUSPENDED (SUSPENDED, BREAKPOINT)
+22:33:24.946 INFO: [TadState] TAD state changed: DEBUG_SUSPENDED -> DEBUG_RESUMED (RESUMED, USER_REQUEST)
+22:33:46.220 INFO: [TadState] TAD state changed: DEBUG_RESUMED -> READY (SUSPENDED, SIGNAL)
+22:33:48.501 INFO: [TadModel] DSF session ID 8 has ended.

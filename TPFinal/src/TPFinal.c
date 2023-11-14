@@ -60,13 +60,16 @@ void eint_config(){
  * start edge as falling edge.
  */
 void adc_config(void){
+	LPC_PINCON->PINSEL1 |= (1<<14);
+	LPC_PINCON->PINMODE1 |= (2<<14);
 	ADC_Init(LPC_ADC, 200000);
     ADC_BurstCmd(LPC_ADC, DISABLE);
-    //ADC_PowerdownCmd(LPC_ADC, ENABLE);
+    ADC_PowerdownCmd(LPC_ADC, ENABLE);
     ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
-    ADC_StartCmd(LPC_ADC, ADC_START_ON_MAT01);
+    ADC_StartCmd(LPC_ADC, 4);
     ADC_EdgeStartConfig(LPC_ADC, 0);
     ADC_IntConfig(LPC_ADC, 0, ENABLE);
+    //ADC_BurstCmd(LPC_ADC, ENABLE);
     NVIC_EnableIRQ(ADC_IRQn);
     return;
 }
@@ -104,13 +107,11 @@ void dac_config1(void){
 void timer_config(void){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
     LPC_TIM0->PR = 99; //Prescaler = 99
-    LPC_TIM0->MR1 = 50000;
+    LPC_TIM0->MR1 = 500000;
     LPC_TIM0->MCR |= (1<<4); //Reset on MR1
     LPC_TIM0->EMR |= (3<<6); //Toggle on MR1
     LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
     LPC_TIM0->TCR &=~ 0x02; //Deshabilito el reset del timer0
-    //LPC_TIM0->IR = 1;
-    //NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
 
@@ -140,7 +141,7 @@ void dma_config(void){
 	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
 	GPDMACfg1.DMALLI = (uint32_t)&LLI;
 	GPDMA_Setup(&GPDMACfg1);
-    GPDMA_ChannelCmd(1, ENABLE);
+    //GPDMA_ChannelCmd(1, ENABLE);
     return;
 }
 
@@ -156,6 +157,7 @@ void uart_config(){
     UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
     UART_FIFOConfig(LPC_UART2, &UARTFIFOConfigStruct);
 	UART_TxCmd(LPC_UART2, ENABLE);
+	return;
 }
 
 
@@ -179,30 +181,28 @@ void EINT0_IRQHandler(void){
 
 //
 void ADC_IRQHandler(void){
-	if(LPC_ADC->ADDR0 & (1<<31)){
-		uint16_t water_level = (LPC_ADC->ADDR0>>4);
+	//if(LPC_ADC->ADDR0 & (1<<31)){
+		uint32_t water_level = (LPC_ADC->ADDR0>>6) & 0x3FF;
 		DAC_UpdateValue(LPC_DAC, water_level);
+        //LPC_DAC->DACR |= (((LPC_ADC->ADDR0>>6) & 0x3FF) <<6);
 //		if(water_level > 1365){
 //			uint8_t string[] = "REFILL\n";
 //			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 //		}
 		//LPC_TIM0->EMR |= (1<<6);
-		//LPC_ADC->ADGDR |= (1 << 31);
+		//LPC_ADC->ADINTEN |= 1;
 
-	}
+	//}
 	return;
 }
 
-void TIMER0_IRQHandler(void){
-
-}
 int main(void) {
+	dac_config1();
     adc_config();
-    dac_config1();
     timer_config();
     //dma_config();
     while(1) {
         //TODO
     }
-    return 0 ;
+    return 0;
 }

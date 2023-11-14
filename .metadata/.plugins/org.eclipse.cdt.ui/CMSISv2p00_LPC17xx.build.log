@@ -1,4 +1,4 @@
-20:07:47 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+22:33:17 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
 make -r -j12 all 
 make[1]: Nothing to be done for 'main-build'.
 Performing post-build steps
@@ -33,5 +33,5 @@ arm-none-eabi-size libCMSISv2p00_LPC17xx.a ; # arm-none-eabi-objdump -h -S libCM
     314	      0	      0	    314	    13a	lpc17xx_wdt.o (ex libCMSISv2p00_LPC17xx.a)
  
 
-20:07:48 Build Finished. 0 errors, 0 warnings. (took 335ms)
+22:33:18 Build Finished. 0 errors, 0 warnings. (took 343ms)
 
