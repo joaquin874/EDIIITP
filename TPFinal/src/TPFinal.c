@@ -113,11 +113,15 @@ void confPin(void){
  * This means the timer will interrupt every 0.5 seconds.
  * Enables reset and interrupt on match value.
  * Clears interrupt flags and enables Timer1 interrupt.
+ * CCLK = 100MHz and PCLK = 100MHz
+ * PR = 999 ====> f_res = 100KHz ===> T_res = 1x10^-5 s
+ * 1x10^-5 s ------- 1c
+ * 30 s ------------ xc = 3000000 counts
  */
 void timer_config(void){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
-    LPC_TIM0->PR = 99; //Prescaler = 99
-    LPC_TIM0->MR1 = 50000;
+    LPC_TIM0->PR = 999; //Prescaler = 99
+    LPC_TIM0->MR1 = 3000000; //30 Seconds
     LPC_TIM0->MCR |= (1<<4); //Reset on MR1
     LPC_TIM0->EMR |= (3<<6); //Toggle on MR1
     LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
