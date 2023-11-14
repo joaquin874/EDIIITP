@@ -156,9 +156,12 @@ void uart_config(){
     UART_CFG_Type UARTConfigStruct;
     UART_FIFO_CFG_Type UARTFIFOConfigStruct;
     UART_ConfigStructInit(&UARTConfigStruct);
+
+    UART_Init(LPC_UART3, &UARTConfigStruct);
+
     UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
-    UART_FIFOConfig(LPC_UART2, &UARTFIFOConfigStruct);
-	UART_TxCmd(LPC_UART2, ENABLE);
+    UART_FIFOConfig(LPC_UART3, &UARTFIFOConfigStruct);
+	UART_TxCmd(LPC_UART3, ENABLE);
 	return;
 }
 
@@ -169,14 +172,20 @@ void uart_config(){
  * This function toggles the power state of the ADC module on every interrupt trigger.
  */
 void EINT0_IRQHandler(void){
-	static uint16_t mode = 0;
-    if(mode % 2 == 0){
-        ADC_PowerdownCmd(LPC_ADC, DISABLE);
-    }
-    else{
-        ADC_PowerdownCmd(LPC_ADC, ENABLE);
-    }
-    mode++;
+//	static uint16_t mode = 0;
+//    if(mode % 2 == 0){
+//        ADC_PowerdownCmd(LPC_ADC, DISABLE);
+//    }
+//    else{
+//        ADC_PowerdownCmd(LPC_ADC, ENABLE);
+//    }
+//    mode++;
+	for(int i = 0; i < 100000; i++){}
+	uint8_t string[] = {0x35};
+	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+
     LPC_SC->EXTINT = 1;
     return;
 }
@@ -185,16 +194,19 @@ void EINT0_IRQHandler(void){
 void ADC_IRQHandler(void){
 	if(LPC_ADC->ADDR0 & (1<<31)){
 		uint32_t water_level = (LPC_ADC->ADDR0>>6) & 0x3FF;
-		static int i = 0;
+		//static int i = 0;
 		//DAC_UpdateValue(LPC_DAC, water_level);
         //LPC_DAC->DACR |= (((LPC_ADC->ADDR0>>6) & 0x3FF) <<6);
-		if(water_level < 300 && i == 0){
+		if(water_level < 300){
 			//pwm_generator(50);
-			GPDMA_ChannelCmd(0, ENABLE);
-			i++;
+			uint8_t string[] = {0x35};
+			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+			//GPDMA_ChannelCmd(0, ENABLE);
+			//i++;
 		}
-//			uint8_t string[] = "REFILL\n";
-//			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+
 //		}
 		//LPC_TIM0->EMR |= (1<<6);
 	LPC_ADC->ADINTEN |= 1;
@@ -203,19 +215,24 @@ void ADC_IRQHandler(void){
 	return;
 }
 
-void DMA_IRQHandler(void){
-	int i = 0;
-}
+//VER DMA
+//void DMA_IRQHandler(void){
+//	int i = 0;
+//}
 
 int main(void) {
-	pwm_generator(50);
-	dma_config();
-	//adc_config();
-	//timer_config();
-	dac_config();
+	//pwm_generator(50);
+	//dma_config();
+	uart_config();
+	adc_config();
+	timer_config();
+	//dac_config();
+	//eint_config();
 
+	//UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
     while(1) {
-
+//    	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+//    	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 //    	uint32_t *mem_address = (uint32_t *) SRAM0;
 //    	for(int i = 0; i <100 ; i++){
 //    		for(uint32_t i = 0; i<1000; i++){}
