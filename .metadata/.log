@@ -2881,3 +2881,19 @@ java.lang.Exception: Invalid thread id: 1
 
 !ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-14 13:38:08.848
 !MESSAGE Telnet session connected on port 3330->47022 @ 127.0.0.1
+
+!ENTRY com.crt.log 1 0 2023-11-14 13:40:24.727
+!MESSAGE Trying to connect to redlink server on port 3025.
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-14 13:40:25.729
+!MESSAGE RedlinkServer telnet session connected on port 3025->46420 @ 127.0.0.1
+
+!ENTRY com.nxp.mcuxpresso.core.debug.support.linkserver 1 0 2023-11-14 13:40:28.356
+!MESSAGE cvc-complex-type.2.4.a: Invalid content was found starting with element '{"http://www.w3.org/2001/XInclude":include}'. One of '{include, parameters, script}' is expected.
+
+
+!ENTRY com.crt.log 1 0 2023-11-14 13:40:28.929
+!MESSAGE Starting GDB server [ /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.bin.linux_11.8.0.202307121428/binaries//crt_emu_cm_redlink, --server, :10989, -msg-port=37631, -g, -mi, -2, -pLPC1769, -vendor=NXP, --reset=VECTRESET, -ProbeHandle=1, -CoreIndex=0, --flash-hashing, --flash-driver, LPC175x_6x_512.cfx, --telnet, 3330 ]
+
+!ENTRY com.nxp.mcuxpresso.core.debug 1 0 2023-11-14 13:40:29.984
+!MESSAGE Telnet session connected on port 3330->52618 @ 127.0.0.1

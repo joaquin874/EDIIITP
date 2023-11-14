@@ -103,3 +103,66 @@ arm-none-eabi-size "TPFinal.axf"; # arm-none-eabi-objcopy -v -O binary "TPFinal.
    text	   data	    bss	    dec	    hex	filename
    3296	      4	      0	   3300	    ce4	TPFinal.axf
  
+13:40:26 **** Incremental Build of configuration Debug for project CMSISv2p00_LPC17xx ****
+make -r -j12 all 
+make[1]: Nothing to be done for 'main-build'.
+Performing post-build steps
+arm-none-eabi-size libCMSISv2p00_LPC17xx.a ; # arm-none-eabi-objdump -h -S libCMSISv2p00_LPC17xx.a >libCMSISv2p00_LPC17xx.lss
+   text	   data	    bss	    dec	    hex	filename
+      0	      0	      0	      0	      0	core_cm3.o (ex libCMSISv2p00_LPC17xx.a)
+    400	      4	      0	    404	    194	system_LPC17xx.o (ex libCMSISv2p00_LPC17xx.a)
+    910	      0	     40	    950	    3b6	debug_frmwrk.o (ex libCMSISv2p00_LPC17xx.a)
+    738	      0	      0	    738	    2e2	lpc17xx_adc.o (ex libCMSISv2p00_LPC17xx.a)
+   5842	      0	     11	   5853	   16dd	lpc17xx_can.o (ex libCMSISv2p00_LPC17xx.a)
+    296	      0	      0	    296	    128	lpc17xx_clkpwr.o (ex libCMSISv2p00_LPC17xx.a)
+    254	      0	      0	    254	     fe	lpc17xx_dac.o (ex libCMSISv2p00_LPC17xx.a)
+   1297	      0	  10852	  12149	   2f75	lpc17xx_emac.o (ex libCMSISv2p00_LPC17xx.a)
+    182	      0	      0	    182	     b6	lpc17xx_exti.o (ex libCMSISv2p00_LPC17xx.a)
+    912	     32	      0	    944	    3b0	lpc17xx_gpdma.o (ex libCMSISv2p00_LPC17xx.a)
+    572	      0	      0	    572	    23c	lpc17xx_gpio.o (ex libCMSISv2p00_LPC17xx.a)
+   2348	      0	     52	   2400	    960	lpc17xx_i2c.o (ex libCMSISv2p00_LPC17xx.a)
+   1780	      0	      0	   1780	    6f4	lpc17xx_i2s.o (ex libCMSISv2p00_LPC17xx.a)
+      2	      0	      0	      2	      2	lpc17xx_libcfg_default.o (ex libCMSISv2p00_LPC17xx.a)
+    656	      0	      0	    656	    290	lpc17xx_mcpwm.o (ex libCMSISv2p00_LPC17xx.a)
+    116	      0	      0	    116	     74	lpc17xx_nvic.o (ex libCMSISv2p00_LPC17xx.a)
+    184	      0	      0	    184	     b8	lpc17xx_pinsel.o (ex libCMSISv2p00_LPC17xx.a)
+   1482	      0	      0	   1482	    5ca	lpc17xx_pwm.o (ex libCMSISv2p00_LPC17xx.a)
+   1278	      0	      0	   1278	    4fe	lpc17xx_qei.o (ex libCMSISv2p00_LPC17xx.a)
+    346	      0	      0	    346	    15a	lpc17xx_rit.o (ex libCMSISv2p00_LPC17xx.a)
+   2254	      0	      0	   2254	    8ce	lpc17xx_rtc.o (ex libCMSISv2p00_LPC17xx.a)
+    848	      0	      0	    848	    350	lpc17xx_spi.o (ex libCMSISv2p00_LPC17xx.a)
+   1516	      0	      0	   1516	    5ec	lpc17xx_ssp.o (ex libCMSISv2p00_LPC17xx.a)
+    264	      0	      0	    264	    108	lpc17xx_systick.o (ex libCMSISv2p00_LPC17xx.a)
+   1412	      0	      0	   1412	    584	lpc17xx_timer.o (ex libCMSISv2p00_LPC17xx.a)
+   3102	      0	      0	   3102	    c1e	lpc17xx_uart.o (ex libCMSISv2p00_LPC17xx.a)
+    314	      0	      0	    314	    13a	lpc17xx_wdt.o (ex libCMSISv2p00_LPC17xx.a)
+ 
+13:40:26 **** Incremental Build of configuration Debug for project TPFinal ****
+make -r -j12 all 
+Building file: ../src/TPFinal.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/home/joaquin/Facultad/EDIII/TPFinal/TPFinal/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Drivers/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/TPFinal.d" -MT"src/TPFinal.o" -MT"src/TPFinal.d" -o "src/TPFinal.o" "../src/TPFinal.c"
+Finished building: ../src/TPFinal.c
+ 
+Building target: TPFinal.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="TPFinal.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T TPFinal_Debug.ld -o "TPFinal.axf" ./src/TPFinal.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o    -lCMSISv2p00_LPC17xx
+Memory region         Used Size  Region Size  %age Used
+       MFlash512:        3276 B       512 KB      0.62%
+        RamLoc32:           4 B        32 KB      0.01%
+        RamAHB32:          0 GB        32 KB      0.00%
+Finished building target: TPFinal.axf
+ 
+Performing post-build steps
+arm-none-eabi-size "TPFinal.axf"; # arm-none-eabi-objcopy -v -O binary "TPFinal.axf" "TPFinal.bin" ; # checksum -p LPC1769 -d "TPFinal.bin";
+   text	   data	    bss	    dec	    hex	filename
+   3272	      4	      0	   3276	    ccc	TPFinal.axf
+ 
+13:40:27 **** Incremental Build of configuration Debug for project TPFinal ****
+make -r -j12 all 
+make[1]: Nothing to be done for 'main-build'.
+Performing post-build steps
+arm-none-eabi-size "TPFinal.axf"; # arm-none-eabi-objcopy -v -O binary "TPFinal.axf" "TPFinal.bin" ; # checksum -p LPC1769 -d "TPFinal.bin";
+   text	   data	    bss	    dec	    hex	filename
+   3272	      4	      0	   3276	    ccc	TPFinal.axf
+ 

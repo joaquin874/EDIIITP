@@ -1,11 +1,11 @@
-13:38:06 **** Incremental Build of configuration Debug for project TPFinal ****
+13:40:27 **** Incremental Build of configuration Debug for project TPFinal ****
 make -r -j12 all 
 make[1]: Nothing to be done for 'main-build'.
 Performing post-build steps
 arm-none-eabi-size "TPFinal.axf"; # arm-none-eabi-objcopy -v -O binary "TPFinal.axf" "TPFinal.bin" ; # checksum -p LPC1769 -d "TPFinal.bin";
    text	   data	    bss	    dec	    hex	filename
-   3296	      4	      0	   3300	    ce4	TPFinal.axf
+   3272	      4	      0	   3276	    ccc	TPFinal.axf
  
 
-13:38:06 Build Finished. 0 errors, 0 warnings. (took 338ms)
+13:40:27 Build Finished. 0 errors, 0 warnings. (took 286ms)
 

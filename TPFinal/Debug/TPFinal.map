@@ -417,7 +417,7 @@ END GROUP
                 0x0000000020084000                __top_RamAHB32 = 0x20084000
                 0x0000000020084000                __top_RAM2 = 0x20084000
 
-.text           0x0000000000000000      0xce0
+.text           0x0000000000000000      0xcc8
  FILL mask 0xff
                 0x0000000000000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -426,10 +426,10 @@ END GROUP
                 0x00000000000000cc                . = ALIGN (0x4)
                 0x00000000000000cc                __section_table_start = .
                 0x00000000000000cc                __data_section_table = .
-                0x00000000000000cc        0x4 LONG 0xce0 LOADADDR (.data)
+                0x00000000000000cc        0x4 LONG 0xcc8 LOADADDR (.data)
                 0x00000000000000d0        0x4 LONG 0x10000000 ADDR (.data)
                 0x00000000000000d4        0x4 LONG 0x4 SIZEOF (.data)
-                0x00000000000000d8        0x4 LONG 0xce0 LOADADDR (.data_RAM2)
+                0x00000000000000d8        0x4 LONG 0xcc8 LOADADDR (.data_RAM2)
                 0x00000000000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
                 0x00000000000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
                 0x00000000000000e4                __data_section_table_end = .
@@ -513,110 +513,110 @@ END GROUP
                 0x000000000000046c       0x60 ./src/TPFinal.o
                 0x000000000000046c                EINT0_IRQHandler
  .text.ADC_IRQHandler
-                0x00000000000004cc       0x68 ./src/TPFinal.o
+                0x00000000000004cc       0x50 ./src/TPFinal.o
                 0x00000000000004cc                ADC_IRQHandler
- .text.main     0x0000000000000534       0x14 ./src/TPFinal.o
-                0x0000000000000534                main
+ .text.main     0x000000000000051c       0x14 ./src/TPFinal.o
+                0x000000000000051c                main
  .text.SystemInit
-                0x0000000000000548       0xd8 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-                0x0000000000000548                SystemInit
+                0x0000000000000530       0xd8 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x0000000000000530                SystemInit
  .text.ADC_Init
-                0x0000000000000620       0x58 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x0000000000000620                ADC_Init
+                0x0000000000000608       0x58 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000608                ADC_Init
  .text.ADC_StartCmd
-                0x0000000000000678       0x3c /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x0000000000000678                ADC_StartCmd
+                0x0000000000000660       0x3c /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000660                ADC_StartCmd
  .text.ADC_BurstCmd
-                0x00000000000006b4       0x30 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x00000000000006b4                ADC_BurstCmd
+                0x000000000000069c       0x30 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x000000000000069c                ADC_BurstCmd
  .text.ADC_EdgeStartConfig
-                0x00000000000006e4       0x48 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x00000000000006e4                ADC_EdgeStartConfig
+                0x00000000000006cc       0x48 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x00000000000006cc                ADC_EdgeStartConfig
  .text.ADC_IntConfig
-                0x000000000000072c       0x44 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x000000000000072c                ADC_IntConfig
+                0x0000000000000714       0x44 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000714                ADC_IntConfig
  .text.ADC_ChannelCmd
-                0x0000000000000770       0x34 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x0000000000000770                ADC_ChannelCmd
+                0x0000000000000758       0x34 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000758                ADC_ChannelCmd
  .text.CLKPWR_GetPCLKSEL
-                0x00000000000007a4       0x20 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000000000007a4                CLKPWR_GetPCLKSEL
+                0x000000000000078c       0x20 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x000000000000078c                CLKPWR_GetPCLKSEL
  .text.CLKPWR_GetPCLK
-                0x00000000000007c4       0x20 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000000000007c4                CLKPWR_GetPCLK
+                0x00000000000007ac       0x20 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x00000000000007ac                CLKPWR_GetPCLK
  .text.CLKPWR_ConfigPPWR
-                0x00000000000007e4       0x34 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000000000007e4                CLKPWR_ConfigPPWR
+                0x00000000000007cc       0x34 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x00000000000007cc                CLKPWR_ConfigPPWR
  .text.check_failed
-                0x0000000000000818        0x2 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
-                0x0000000000000818                check_failed
- *fill*         0x000000000000081a        0x2 ff
+                0x0000000000000800        0x2 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+                0x0000000000000800                check_failed
+ *fill*         0x0000000000000802        0x2 ff
  .text.UART_Init
-                0x000000000000081c      0x28c /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x000000000000081c                UART_Init
+                0x0000000000000804      0x28c /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000804                UART_Init
  .text.UART_ConfigStructInit
-                0x0000000000000aa8       0x12 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000aa8                UART_ConfigStructInit
- *fill*         0x0000000000000aba        0x2 ff
+                0x0000000000000a90       0x12 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000a90                UART_ConfigStructInit
+ *fill*         0x0000000000000aa2        0x2 ff
  .text.UART_SendByte
-                0x0000000000000abc       0x40 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000abc                UART_SendByte
+                0x0000000000000aa4       0x40 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000aa4                UART_SendByte
  .text.UART_Send
-                0x0000000000000afc       0x7e /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000afc                UART_Send
- *fill*         0x0000000000000b7a        0x2 ff
+                0x0000000000000ae4       0x7e /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000ae4                UART_Send
+ *fill*         0x0000000000000b62        0x2 ff
  .text.UART_FIFOConfig
-                0x0000000000000b7c       0xa8 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000b7c                UART_FIFOConfig
+                0x0000000000000b64       0xa8 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000b64                UART_FIFOConfig
  .text.UART_FIFOConfigStructInit
-                0x0000000000000c24        0xe /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000c24                UART_FIFOConfigStructInit
- *fill*         0x0000000000000c32        0x2 ff
+                0x0000000000000c0c        0xe /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000c0c                UART_FIFOConfigStructInit
+ *fill*         0x0000000000000c1a        0x2 ff
  .text.UART_TxCmd
-                0x0000000000000c34       0x84 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000c34                UART_TxCmd
+                0x0000000000000c1c       0x84 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000c1c                UART_TxCmd
  .text.__weak_main
-                0x0000000000000cb8        0x4 /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
-                0x0000000000000cb8                __main
-                0x0000000000000cb8                __weak_main
+                0x0000000000000ca0        0x4 /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                0x0000000000000ca0                __main
+                0x0000000000000ca0                __weak_main
  *(.rodata .rodata.* .constdata .constdata.*)
  .rodata.ADC_Init.str1.1
-                0x0000000000000cbc        0xe /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000ca4        0xe /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
  .rodata.CSWTCH.5
-                0x0000000000000cca        0x4 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x0000000000000cb2        0x4 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .rodata.UART_Init.str1.1
-                0x0000000000000cce        0xf /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000ce0                . = ALIGN (0x4)
- *fill*         0x0000000000000cdd        0x3 ff
+                0x0000000000000cb6        0xf /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000cc8                . = ALIGN (0x4)
+ *fill*         0x0000000000000cc5        0x3 ff
 
-.glue_7         0x0000000000000ce0        0x0
- .glue_7        0x0000000000000ce0        0x0 linker stubs
+.glue_7         0x0000000000000cc8        0x0
+ .glue_7        0x0000000000000cc8        0x0 linker stubs
 
-.glue_7t        0x0000000000000ce0        0x0
- .glue_7t       0x0000000000000ce0        0x0 linker stubs
+.glue_7t        0x0000000000000cc8        0x0
+ .glue_7t       0x0000000000000cc8        0x0 linker stubs
 
-.vfp11_veneer   0x0000000000000ce0        0x0
- .vfp11_veneer  0x0000000000000ce0        0x0 linker stubs
+.vfp11_veneer   0x0000000000000cc8        0x0
+ .vfp11_veneer  0x0000000000000cc8        0x0 linker stubs
 
-.v4_bx          0x0000000000000ce0        0x0
- .v4_bx         0x0000000000000ce0        0x0 linker stubs
+.v4_bx          0x0000000000000cc8        0x0
+ .v4_bx         0x0000000000000cc8        0x0 linker stubs
 
-.iplt           0x0000000000000ce0        0x0
- .iplt          0x0000000000000ce0        0x0 ./src/TPFinal.o
+.iplt           0x0000000000000cc8        0x0
+ .iplt          0x0000000000000cc8        0x0 ./src/TPFinal.o
 
-.rel.dyn        0x0000000000000ce0        0x0
- .rel.iplt      0x0000000000000ce0        0x0 ./src/TPFinal.o
+.rel.dyn        0x0000000000000cc8        0x0
+ .rel.iplt      0x0000000000000cc8        0x0 ./src/TPFinal.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x0000000000000ce0        0x0
-                0x0000000000000ce0                __exidx_start = .
+.ARM.exidx      0x0000000000000cc8        0x0
+                0x0000000000000cc8                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0000000000000ce0                __exidx_end = .
-                0x0000000000000ce0                _etext = .
+                0x0000000000000cc8                __exidx_end = .
+                0x0000000000000cc8                _etext = .
 
-.data_RAM2      0x000000002007c000        0x0 load address 0x0000000000000ce0
+.data_RAM2      0x000000002007c000        0x0 load address 0x0000000000000cc8
  FILL mask 0xff
                 [!provide]                        PROVIDE (__start_data_RAM2 = .)
                 [!provide]                        PROVIDE (__start_data_RamAHB32 = .)
@@ -637,7 +637,7 @@ END GROUP
                 0x0000000010000000                . = ALIGN (0x4)
                 0x0000000010000000                _end_uninit_RESERVED = .
 
-.data           0x0000000010000000        0x4 load address 0x0000000000000ce0
+.data           0x0000000010000000        0x4 load address 0x0000000000000cc8
  FILL mask 0xff
                 0x0000000010000000                _data = .
                 [!provide]                        PROVIDE (__start_data_RAM = .)
@@ -656,7 +656,7 @@ END GROUP
                 [!provide]                        PROVIDE (__end_data_RAM = .)
                 [!provide]                        PROVIDE (__end_data_RamLoc32 = .)
 
-.igot.plt       0x0000000010000004        0x0 load address 0x0000000000000ce4
+.igot.plt       0x0000000010000004        0x0 load address 0x0000000000000ccc
  .igot.plt      0x0000000010000004        0x0 ./src/TPFinal.o
 
 .bss_RAM2       0x000000002007c000        0x0
@@ -706,8 +706,8 @@ END GROUP
                 0x0000000010008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
                 0xffffffffefff749e                PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
                 0x0000000000000000                _image_start = LOADADDR (.text)
-                0x0000000000000ce4                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x0000000000000ce4                _image_size = (_image_end - _image_start)
+                0x0000000000000ccc                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x0000000000000ccc                _image_size = (_image_end - _image_start)
 OUTPUT(TPFinal.axf elf32-littlearm)
 LOAD linker stubs
 
@@ -800,15 +800,15 @@ LOAD linker stubs
  .debug_macro   0x0000000000003bd4       0x9f /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
  .debug_macro   0x0000000000003c73      0x334 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
 
-.debug_line     0x0000000000000000     0x2c0e
- .debug_line    0x0000000000000000      0x586 ./src/TPFinal.o
- .debug_line    0x0000000000000586      0x162 ./src/cr_startup_lpc175x_6x.o
- .debug_line    0x00000000000006e8       0xb5 ./src/crp.o
- .debug_line    0x000000000000079d      0x412 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_line    0x0000000000000baf      0x6f9 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
- .debug_line    0x00000000000012a8      0x467 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_line    0x000000000000170f      0x20e /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_line    0x000000000000191d     0x12f1 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+.debug_line     0x0000000000000000     0x2c0c
+ .debug_line    0x0000000000000000      0x584 ./src/TPFinal.o
+ .debug_line    0x0000000000000584      0x162 ./src/cr_startup_lpc175x_6x.o
+ .debug_line    0x00000000000006e6       0xb5 ./src/crp.o
+ .debug_line    0x000000000000079b      0x412 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_line    0x0000000000000bad      0x6f9 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+ .debug_line    0x00000000000012a6      0x467 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_line    0x000000000000170d      0x20e /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+ .debug_line    0x000000000000191b     0x12f1 /home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
 
 .debug_str      0x0000000000000000     0xee12
  .debug_str     0x0000000000000000     0xc8e2 ./src/TPFinal.o

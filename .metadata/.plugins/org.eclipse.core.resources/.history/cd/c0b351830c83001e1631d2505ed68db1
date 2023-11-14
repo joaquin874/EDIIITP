@@ -201,6 +201,8 @@ void ADC_IRQHandler(void){
 			//pwm_generator(50);
 			uint8_t string[] = {0x35};
 			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 			//GPDMA_ChannelCmd(0, ENABLE);
 			//i++;
 		}
