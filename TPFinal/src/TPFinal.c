@@ -7,13 +7,18 @@
 #include "lpc17xx_adc.h"
 #include "lpc17xx_dac.h"
 #include "lpc17xx_uart.h"
-
+#include "lpc17xx_pinsel.h"
 
 
 #include <cr_section_macros.h>
 
 #define SRAM0 0x2007C000
 #define BaudRate 38400
+#define SAMPLES 100
+#define PCLK_DAC_IN_MHZ 25
+
+
+uint32_t dac_pwm[SAMPLES];
 
 /**
  * Generates a PWM signal by writing to a memory address in SRAM0.
@@ -21,16 +26,15 @@
  * 100 times, in order to generate a PWM signal that can variate from a 1% to 100% duty cycle.
  */
 void pwm_generator(uint8_t duty_cycle){
-    uint32_t *mem_address = (uint32_t *) SRAM0;
-    uint8_t duty_index = 0;
-    for(duty_index = 0; duty_index < 100; duty_index++){
+    //uint32_t *mem_address = (uint32_t *) SRAM0;
+
+    for(int duty_index = 0; duty_index < 100; duty_index++){
         if(duty_index < duty_cycle){
-            *mem_address = (1023 << 6);
+            dac_pwm[duty_index] = (1023 << 6);
         }
         else{
-            *mem_address = 0;
+        	dac_pwm[duty_index] = 0;
         }
-        mem_address++;
     }
 }
 
@@ -65,12 +69,10 @@ void adc_config(void){
 
 	ADC_Init(LPC_ADC, 200000);
     ADC_BurstCmd(LPC_ADC, DISABLE);
-    //ADC_PowerdownCmd(LPC_ADC, ENABLE);
     ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
     ADC_StartCmd(LPC_ADC, 4);
     ADC_EdgeStartConfig(LPC_ADC, 0);
     ADC_IntConfig(LPC_ADC, 0, ENABLE);
-    //ADC_BurstCmd(LPC_ADC, ENABLE);
     NVIC_EnableIRQ(ADC_IRQn);
     return;
 }
@@ -80,25 +82,32 @@ void adc_config(void){
  * This function initializes the DAC, sets the clock for the DAC, and enables the DAC counter and DMA.
  */
 void dac_config(void){
-    LPC_PINCON->PINSEL1 |= (2<<20);  //Config AOUT
-    LPC_PINCON->PINMODE1 |= (2<<20);
-    DAC_CONVERTER_CFG_Type dacConfig;
-    dacConfig.CNT_ENA = SET;
-    dacConfig.DMA_ENA = SET;
-
-    DAC_Init(LPC_DAC);
-    LPC_SC->PCLKSEL0 |= (1<<22);
-    DAC_SetDMATimeOut(LPC_DAC, 10000);
-    DAC_ConfigDAConverterControl(LPC_DAC, &dacConfig);
-}
-
-void dac_config1(void){
-	LPC_PINCON->PINSEL1 |= (2<<20);  //Config AOUT
-	LPC_PINCON->PINMODE1 |= (2<<20);
+	uint32_t tmp;
+	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
+	DAC_ConverterConfigStruct.CNT_ENA =SET;
+	DAC_ConverterConfigStruct.DMA_ENA = SET;
 	DAC_Init(LPC_DAC);
+	/* set time out for DAC*/
+	tmp = (PCLK_DAC_IN_MHZ*1000000)/(1*SAMPLES);
+	DAC_SetDMATimeOut(LPC_DAC,tmp);
+	DAC_ConfigDAConverterControl(LPC_DAC, &DAC_ConverterConfigStruct);
 	return;
 }
 
+void confPin(void){
+	PINSEL_CFG_Type PinCfg;
+	/*
+	 * Init DAC pin connect
+	 * AOUT on P0.26
+	 */
+	PinCfg.Funcnum = 2;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Pinnum = 26;
+	PinCfg.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg);
+	return;
+}
 /**
  * Configures Timer1 with a prescaler of 99 and a match value of 500000.
  * This means the timer will interrupt every 0.5 seconds.
@@ -123,26 +132,25 @@ void timer_config(void){
  */
 void dma_config(void){
     GPDMA_LLI_Type LLI;
-    LLI.SrcAddr = (uint32_t) SRAM0;
-    LLI.DstAddr = (uint32_t) &LPC_DAC->DACR;
+    LLI.SrcAddr = (uint32_t) (dac_pwm);
+    LLI.DstAddr = (uint32_t) & (LPC_DAC->DACR);
     LLI.NextLLI = (uint32_t) &LLI;
-    LLI.Control = 0x64      //transfer size 100 registers
+    LLI.Control = SAMPLES      //transfer size 100 registers
 				|(2<<18)    //source width 32 bits
 				|(2<<21)    //dest width 32 bits
                 |(1<<26);   //source increment
     GPDMA_Init();
     GPDMA_Channel_CFG_Type GPDMACfg1;
     GPDMACfg1.ChannelNum = 0;
-	GPDMACfg1.SrcMemAddr = (uint32_t)SRAM0;
+	GPDMACfg1.SrcMemAddr = (uint32_t) (dac_pwm);
 	GPDMACfg1.DstMemAddr = 0;
-	GPDMACfg1.TransferSize = 0x64;
+	GPDMACfg1.TransferSize = SAMPLES;
 	GPDMACfg1.TransferWidth = 0;
 	GPDMACfg1.TransferType = GPDMA_TRANSFERTYPE_M2P;
 	GPDMACfg1.SrcConn = 0;
 	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
 	GPDMACfg1.DMALLI = (uint32_t)&LLI;
 	GPDMA_Setup(&GPDMACfg1);
-	NVIC_EnableIRQ(DMA_IRQn);
 	GPDMA_ChannelCmd(0, ENABLE);
     return;
 }
@@ -172,20 +180,14 @@ void uart_config(){
  * This function toggles the power state of the ADC module on every interrupt trigger.
  */
 void EINT0_IRQHandler(void){
-//	static uint16_t mode = 0;
-//    if(mode % 2 == 0){
-//        ADC_PowerdownCmd(LPC_ADC, DISABLE);
-//    }
-//    else{
-//        ADC_PowerdownCmd(LPC_ADC, ENABLE);
-//    }
-//    mode++;
-	for(int i = 0; i < 100000; i++){}
-	uint8_t string[] = {0x35};
-	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-
+	static uint16_t mode = 0;
+    if(mode % 2 == 0){
+        ADC_PowerdownCmd(LPC_ADC, DISABLE);
+    }
+    else{
+        ADC_PowerdownCmd(LPC_ADC, ENABLE);
+    }
+    mode++;
     LPC_SC->EXTINT = 1;
     return;
 }
@@ -194,52 +196,29 @@ void EINT0_IRQHandler(void){
 void ADC_IRQHandler(void){
 	if(LPC_ADC->ADDR0 & (1<<31)){
 		uint32_t water_level = (LPC_ADC->ADDR0>>6) & 0x3FF;
-		//static int i = 0;
-		//DAC_UpdateValue(LPC_DAC, water_level);
-        //LPC_DAC->DACR |= (((LPC_ADC->ADDR0>>6) & 0x3FF) <<6);
 		if(water_level < 300){
-			//pwm_generator(50);
 			uint8_t string[] = {0x35};
 			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-			//GPDMA_ChannelCmd(0, ENABLE);
-			//i++;
 		}
-
-//		}
-		//LPC_TIM0->EMR |= (1<<6);
 	LPC_ADC->ADINTEN |= 1;
-
 	}
 	return;
 }
 
-//VER DMA
-//void DMA_IRQHandler(void){
-//	int i = 0;
-//}
 
 int main(void) {
-	//pwm_generator(50);
-	//dma_config();
+	confPin();
+	pwm_generator(50);
+	dac_config();
+	dma_config();
 	uart_config();
 	adc_config();
 	timer_config();
-	//dac_config();
-	//eint_config();
-
-	//UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-    while(1) {
-//    	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-//    	UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-//    	uint32_t *mem_address = (uint32_t *) SRAM0;
-//    	for(int i = 0; i <100 ; i++){
-//    		for(uint32_t i = 0; i<1000; i++){}
-//    		uint32_t dato = *mem_address;
-//			DAC_UpdateValue(LPC_DAC, dato);
-//			mem_address++;
-//
-//    	}
-
-    }
+	eint_config();
+	while (1){
+			for(int i = 0; i < 100000000; i++){
+				int i =0;
+			}
+		}
     return 0;
 }

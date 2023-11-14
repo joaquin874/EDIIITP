@@ -1,11 +1,28 @@
-13:40:27 **** Incremental Build of configuration Debug for project TPFinal ****
+18:56:38 **** Incremental Build of configuration Debug for project TPFinal ****
 make -r -j12 all 
-make[1]: Nothing to be done for 'main-build'.
+Building file: ../src/TPFinal.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSISv2p00_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"/home/joaquin/Facultad/EDIII/TPFinal/TPFinal/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Drivers/inc" -I"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/TPFinal.d" -MT"src/TPFinal.o" -MT"src/TPFinal.d" -o "src/TPFinal.o" "../src/TPFinal.c"
+../src/TPFinal.c: In function 'main':
+../src/TPFinal.c:220:37: warning: unused variable 'i' [-Wunused-variable]
+  220 |                                 int i =0;
+      |                                     ^
+Finished building: ../src/TPFinal.c
+ 
+Building target: TPFinal.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"/home/joaquin/Facultad/EDIII/TPFinal/CMSISv2p00_LPC17xx/Debug" -Xlinker -Map="TPFinal.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T TPFinal_Debug.ld -o "TPFinal.axf" ./src/TPFinal.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o    -lCMSISv2p00_LPC17xx
+Memory region         Used Size  Region Size  %age Used
+       MFlash512:        4720 B       512 KB      0.90%
+        RamLoc32:         440 B        32 KB      1.34%
+        RamAHB32:          0 GB        32 KB      0.00%
+Finished building target: TPFinal.axf
+ 
 Performing post-build steps
 arm-none-eabi-size "TPFinal.axf"; # arm-none-eabi-objcopy -v -O binary "TPFinal.axf" "TPFinal.bin" ; # checksum -p LPC1769 -d "TPFinal.bin";
    text	   data	    bss	    dec	    hex	filename
-   3272	      4	      0	   3276	    ccc	TPFinal.axf
+   4684	     36	    404	   5124	   1404	TPFinal.axf
  
 
-13:40:27 Build Finished. 0 errors, 0 warnings. (took 286ms)
+18:56:38 Build Finished. 0 errors, 1 warnings. (took 390ms)
 
