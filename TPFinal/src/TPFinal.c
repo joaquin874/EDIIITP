@@ -25,10 +25,10 @@ void pwm_generator(uint8_t duty_cycle){
     uint8_t duty_index = 0;
     for(duty_index = 0; duty_index < 100; duty_index++){
         if(duty_index < duty_cycle){
-            *mem_address = (0x1023 << 6);
+            *mem_address = (1023 << 6);
         }
         else{
-            *mem_address = 0x0000;
+            *mem_address = 0;
         }
         mem_address++;
     }
@@ -62,9 +62,10 @@ void eint_config(){
 void adc_config(void){
 	LPC_PINCON->PINSEL1 |= (1<<14);
 	LPC_PINCON->PINMODE1 |= (2<<14);
+
 	ADC_Init(LPC_ADC, 200000);
     ADC_BurstCmd(LPC_ADC, DISABLE);
-    ADC_PowerdownCmd(LPC_ADC, ENABLE);
+    //ADC_PowerdownCmd(LPC_ADC, ENABLE);
     ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
     ADC_StartCmd(LPC_ADC, 4);
     ADC_EdgeStartConfig(LPC_ADC, 0);
@@ -87,7 +88,7 @@ void dac_config(void){
 
     DAC_Init(LPC_DAC);
     LPC_SC->PCLKSEL0 |= (1<<22);
-    DAC_SetDMATimeOut(LPC_DAC, 100000000);
+    DAC_SetDMATimeOut(LPC_DAC, 10000);
     DAC_ConfigDAConverterControl(LPC_DAC, &dacConfig);
 }
 
@@ -107,7 +108,7 @@ void dac_config1(void){
 void timer_config(void){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
     LPC_TIM0->PR = 99; //Prescaler = 99
-    LPC_TIM0->MR1 = 500000;
+    LPC_TIM0->MR1 = 50000;
     LPC_TIM0->MCR |= (1<<4); //Reset on MR1
     LPC_TIM0->EMR |= (3<<6); //Toggle on MR1
     LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
@@ -123,7 +124,7 @@ void timer_config(void){
 void dma_config(void){
     GPDMA_LLI_Type LLI;
     LLI.SrcAddr = (uint32_t) SRAM0;
-    LLI.DstAddr = (uint32_t) & LPC_DAC->DACR;
+    LLI.DstAddr = (uint32_t) &LPC_DAC->DACR;
     LLI.NextLLI = (uint32_t) &LLI;
     LLI.Control = 0x64      //transfer size 100 registers
 				|(2<<18)    //source width 32 bits
@@ -141,7 +142,8 @@ void dma_config(void){
 	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
 	GPDMACfg1.DMALLI = (uint32_t)&LLI;
 	GPDMA_Setup(&GPDMACfg1);
-    //GPDMA_ChannelCmd(1, ENABLE);
+	NVIC_EnableIRQ(DMA_IRQn);
+	GPDMA_ChannelCmd(0, ENABLE);
     return;
 }
 
@@ -181,28 +183,48 @@ void EINT0_IRQHandler(void){
 
 //
 void ADC_IRQHandler(void){
-	//if(LPC_ADC->ADDR0 & (1<<31)){
+	if(LPC_ADC->ADDR0 & (1<<31)){
 		uint32_t water_level = (LPC_ADC->ADDR0>>6) & 0x3FF;
-		DAC_UpdateValue(LPC_DAC, water_level);
+		static int i = 0;
+		//DAC_UpdateValue(LPC_DAC, water_level);
         //LPC_DAC->DACR |= (((LPC_ADC->ADDR0>>6) & 0x3FF) <<6);
-//		if(water_level > 1365){
+		if(water_level < 300 && i == 0){
+			//pwm_generator(50);
+			GPDMA_ChannelCmd(0, ENABLE);
+			i++;
+		}
 //			uint8_t string[] = "REFILL\n";
 //			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 //		}
 		//LPC_TIM0->EMR |= (1<<6);
-		//LPC_ADC->ADINTEN |= 1;
+	LPC_ADC->ADINTEN |= 1;
 
-	//}
+	}
 	return;
 }
 
+void DMA_IRQHandler(void){
+	int i = 0;
+}
+
 int main(void) {
-	dac_config1();
-    adc_config();
-    timer_config();
-    //dma_config();
+	pwm_generator(50);
+	dma_config();
+	//adc_config();
+	//timer_config();
+	dac_config();
+
     while(1) {
-        //TODO
+
+//    	uint32_t *mem_address = (uint32_t *) SRAM0;
+//    	for(int i = 0; i <100 ; i++){
+//    		for(uint32_t i = 0; i<1000; i++){}
+//    		uint32_t dato = *mem_address;
+//			DAC_UpdateValue(LPC_DAC, dato);
+//			mem_address++;
+//
+//    	}
+
     }
     return 0;
 }
