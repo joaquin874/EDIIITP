@@ -10,7 +10,7 @@
 #include "lpc17xx_pinsel.h"
 
 
-#include <cr_section_macros.h>
+//#include <cr_section_macros.h>
 
 #define SRAM0 0x2007C000
 #define BaudRate 38400
@@ -19,9 +19,10 @@
 
 
 uint32_t dac_pwm[SAMPLES];
+uint32_t dac_pwm_sg90[SAMPLES*5];
 
 /**
- * Generates a PWM signal by writing to a memory address in SRAM0.
+ * Generates a PWM signal
  * Based on the duty_cycle value, this function writes a 1 or a 0 to the memory address
  * 100 times, in order to generate a PWM signal that can variate from a 1% to 100% duty cycle.
  */
@@ -37,7 +38,46 @@ void pwm_generator(uint8_t duty_cycle){
         }
     }
 }
+/**
+ * Generates a PWM signal by
+ * Based on the state value, this function writes a 1 or a 0 to the memory address
+ * 100 times, in order to generate a PWM signal that can variate from a 1% to 100% duty cycle.
+ * Servomotor SG90 works on 50Hz ===> T = 20ms
+ * Duty Cycle 1ms - 2ms = 5% - 10%
+ * state = 1 open
+ * state = 0 closed
+ */
+void pwm_servo_generator(uint8_t state){
+    if(state == 1){
+        int duty_cycle = 5;
+        for(int i = 0; i < 500; i++){
+            if(i < duty_cycle){
+                dac_pwm_sg90[i] = (1023 << 6);
+            }
+            else{
+        	    dac_pwm_sg90[i] = 0;
+            }
+            if((i+1) % 100 == 0){
+                duty_cycle++;
+            }
+        }
+    }
+    else if(state == 0){
+        int duty_cycle = 10;
+        for(int i = 0; i < 500; i++){
+            if(i < duty_cycle){
+                dac_pwm_sg90[i] = (1023 << 6);
+            }
+            else{
+        	    dac_pwm_sg90[i] = 0;
+            }
+            if((i+1) % 100 == 0){
+                duty_cycle--;
+            }
+        }
+    }
 
+}
 /**
  * Configures external interrupt 0 (EINT0) on pin P2.10.
  * Sets the pin mode to pull-up resistor.
@@ -81,7 +121,7 @@ void adc_config(void){
  /* Configures the DAC (Digital-to-Analog Converter) to output analog signals through pin P0.26.
  * This function initializes the DAC, sets the clock for the DAC, and enables the DAC counter and DMA.
  */
-void dac_config(void){
+void dac_config_buzzer(void){
 	uint32_t tmp;
 	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
 	DAC_ConverterConfigStruct.CNT_ENA =SET;
@@ -89,6 +129,19 @@ void dac_config(void){
 	DAC_Init(LPC_DAC);
 	/* set time out for DAC*/
 	tmp = (PCLK_DAC_IN_MHZ*1000000)/(1*SAMPLES);
+	DAC_SetDMATimeOut(LPC_DAC,tmp);
+	DAC_ConfigDAConverterControl(LPC_DAC, &DAC_ConverterConfigStruct);
+	return;
+}
+
+void dac_config_s90(void){
+	uint32_t tmp;
+	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
+	DAC_ConverterConfigStruct.CNT_ENA =SET;
+	DAC_ConverterConfigStruct.DMA_ENA = SET;
+	DAC_Init(LPC_DAC);
+	/* set time out for DAC*/
+	tmp = (PCLK_DAC_IN_MHZ*1000000)/(50*SAMPLES);
 	DAC_SetDMATimeOut(LPC_DAC,tmp);
 	DAC_ConfigDAConverterControl(LPC_DAC, &DAC_ConverterConfigStruct);
 	return;
@@ -134,7 +187,7 @@ void timer_config(void){
  * Uses a linked list item (LLI) to define the transfer parameters.
  * Initializes and sets up the GPDMA channel 0 with the defined parameters.
  */
-void dma_config(void){
+void dma_config_buzzer(void){
     GPDMA_LLI_Type LLI;
     LLI.SrcAddr = (uint32_t) (dac_pwm);
     LLI.DstAddr = (uint32_t) & (LPC_DAC->DACR);
@@ -149,6 +202,31 @@ void dma_config(void){
 	GPDMACfg1.SrcMemAddr = (uint32_t) (dac_pwm);
 	GPDMACfg1.DstMemAddr = 0;
 	GPDMACfg1.TransferSize = SAMPLES;
+	GPDMACfg1.TransferWidth = 0;
+	GPDMACfg1.TransferType = GPDMA_TRANSFERTYPE_M2P;
+	GPDMACfg1.SrcConn = 0;
+	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
+	GPDMACfg1.DMALLI = (uint32_t)&LLI;
+	GPDMA_Setup(&GPDMACfg1);
+	GPDMA_ChannelCmd(0, ENABLE);
+    return;
+}
+
+void dma_config_sg90(void){
+    GPDMA_LLI_Type LLI;
+    LLI.SrcAddr = (uint32_t) (dac_pwm_sg90);
+    LLI.DstAddr = (uint32_t) & (LPC_DAC->DACR);
+    LLI.NextLLI = (uint32_t) &LLI;
+    LLI.Control = SAMPLES*5      //transfer size 500 registers
+				|(2<<18)    //source width 32 bits
+				|(2<<21)    //dest width 32 bits
+                |(1<<26);   //source increment
+    GPDMA_Init();
+    GPDMA_Channel_CFG_Type GPDMACfg1;
+    GPDMACfg1.ChannelNum = 0;
+	GPDMACfg1.SrcMemAddr = (uint32_t) (dac_pwm_sg90);
+	GPDMACfg1.DstMemAddr = 0;
+	GPDMACfg1.TransferSize = SAMPLES*5;
 	GPDMACfg1.TransferWidth = 0;
 	GPDMACfg1.TransferType = GPDMA_TRANSFERTYPE_M2P;
 	GPDMACfg1.SrcConn = 0;
