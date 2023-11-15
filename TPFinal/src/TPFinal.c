@@ -10,7 +10,7 @@
 #include "lpc17xx_pinsel.h"
 
 
-//#include <cr_section_macros.h>
+#include <cr_section_macros.h>
 
 #define SRAM0 0x2007C000
 #define BaudRate 38400
@@ -104,15 +104,15 @@ void eint_config(){
  * start edge as falling edge.
  */
 void adc_config(void){
-	LPC_PINCON->PINSEL1 |= (1<<14);
-	LPC_PINCON->PINMODE1 |= (2<<14);
+	LPC_PINCON->PINSEL1 |= (1<<16);
+	LPC_PINCON->PINMODE1 |= (2<<16);
 
-	ADC_Init(LPC_ADC, 200000);
-    ADC_BurstCmd(LPC_ADC, DISABLE);
-    ADC_ChannelCmd(LPC_ADC, 0, ENABLE);
+	ADC_Init(LPC_ADC, 100000);
+    //ADC_BurstCmd(LPC_ADC, DISABLE);
+    ADC_ChannelCmd(LPC_ADC, 1, ENABLE);
     ADC_StartCmd(LPC_ADC, 4);
     ADC_EdgeStartConfig(LPC_ADC, 0);
-    ADC_IntConfig(LPC_ADC, 0, ENABLE);
+    ADC_IntConfig(LPC_ADC, 1, ENABLE);
     NVIC_EnableIRQ(ADC_IRQn);
     return;
 }
@@ -122,6 +122,17 @@ void adc_config(void){
  * This function initializes the DAC, sets the clock for the DAC, and enables the DAC counter and DMA.
  */
 void dac_config_buzzer(void){
+	PINSEL_CFG_Type PinCfg;
+	/*
+	 * Init DAC pin connect
+	 * AOUT on P0.26
+	 */
+	PinCfg.Funcnum = 2;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Pinnum = 26;
+	PinCfg.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg);
 	uint32_t tmp;
 	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
 	DAC_ConverterConfigStruct.CNT_ENA =SET;
@@ -135,6 +146,17 @@ void dac_config_buzzer(void){
 }
 
 void dac_config_s90(void){
+	PINSEL_CFG_Type PinCfg;
+		/*
+		 * Init DAC pin connect
+		 * AOUT on P0.26
+		 */
+	PinCfg.Funcnum = 2;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Pinnum = 26;
+	PinCfg.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg);
 	uint32_t tmp;
 	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
 	DAC_ConverterConfigStruct.CNT_ENA =SET;
@@ -174,7 +196,7 @@ void confPin(void){
 void timer_config(void){
     LPC_SC->PCLKSEL0 |= (1<<2); //PCLK = CCLK
     LPC_TIM0->PR = 999; //Prescaler = 99
-    LPC_TIM0->MR1 = 3000000; //30 Seconds
+    LPC_TIM0->MR1 = 30000; //30 Seconds
     LPC_TIM0->MCR |= (1<<4); //Reset on MR1
     LPC_TIM0->EMR |= (3<<6); //Toggle on MR1
     LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
@@ -189,7 +211,7 @@ void timer_config(void){
  */
 void dma_config_buzzer(void){
     GPDMA_LLI_Type LLI;
-    LLI.SrcAddr = (uint32_t) (dac_pwm);
+    LLI.SrcAddr = (uint32_t) &(dac_pwm);
     LLI.DstAddr = (uint32_t) & (LPC_DAC->DACR);
     LLI.NextLLI = (uint32_t) &LLI;
     LLI.Control = SAMPLES      //transfer size 100 registers
@@ -198,8 +220,8 @@ void dma_config_buzzer(void){
                 |(1<<26);   //source increment
     GPDMA_Init();
     GPDMA_Channel_CFG_Type GPDMACfg1;
-    GPDMACfg1.ChannelNum = 0;
-	GPDMACfg1.SrcMemAddr = (uint32_t) (dac_pwm);
+    GPDMACfg1.ChannelNum = 7;
+	GPDMACfg1.SrcMemAddr = (uint32_t) &(dac_pwm);
 	GPDMACfg1.DstMemAddr = 0;
 	GPDMACfg1.TransferSize = SAMPLES;
 	GPDMACfg1.TransferWidth = 0;
@@ -208,13 +230,13 @@ void dma_config_buzzer(void){
 	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
 	GPDMACfg1.DMALLI = (uint32_t)&LLI;
 	GPDMA_Setup(&GPDMACfg1);
-	GPDMA_ChannelCmd(0, ENABLE);
+	GPDMA_ChannelCmd(7, ENABLE);
     return;
 }
 
 void dma_config_sg90(void){
     GPDMA_LLI_Type LLI;
-    LLI.SrcAddr = (uint32_t) (dac_pwm_sg90);
+    LLI.SrcAddr = (uint32_t) &(dac_pwm_sg90);
     LLI.DstAddr = (uint32_t) & (LPC_DAC->DACR);
     LLI.NextLLI = (uint32_t) &LLI;
     LLI.Control = SAMPLES*5      //transfer size 500 registers
@@ -223,8 +245,8 @@ void dma_config_sg90(void){
                 |(1<<26);   //source increment
     GPDMA_Init();
     GPDMA_Channel_CFG_Type GPDMACfg1;
-    GPDMACfg1.ChannelNum = 0;
-	GPDMACfg1.SrcMemAddr = (uint32_t) (dac_pwm_sg90);
+    GPDMACfg1.ChannelNum = 1;
+	GPDMACfg1.SrcMemAddr = (uint32_t) &(dac_pwm_sg90);
 	GPDMACfg1.DstMemAddr = 0;
 	GPDMACfg1.TransferSize = SAMPLES*5;
 	GPDMACfg1.TransferWidth = 0;
@@ -233,7 +255,7 @@ void dma_config_sg90(void){
 	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
 	GPDMACfg1.DMALLI = (uint32_t)&LLI;
 	GPDMA_Setup(&GPDMACfg1);
-	GPDMA_ChannelCmd(0, ENABLE);
+	GPDMA_ChannelCmd(1, ENABLE);
     return;
 }
 
@@ -276,31 +298,39 @@ void EINT0_IRQHandler(void){
 
 //
 void ADC_IRQHandler(void){
-	if(LPC_ADC->ADDR0 & (1<<31)){
-		uint32_t water_level = (LPC_ADC->ADDR0>>6) & 0x3FF;
+	if(LPC_ADC->ADDR1 & (1<<31)){
+		uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
+		static int i = 0;
 		if(water_level < 300){
 			uint8_t string[] = {0x35};
 			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+			//dac_config_buzzer();
+			if(i == 0){
+				dac_config_buzzer();
+				dma_config_buzzer();
+				//GPDMA_ChannelCmd(0, ENABLE);
+			}
+
 		}
-	LPC_ADC->ADINTEN |= 1;
+	//LPC_ADC->ADINTEN |= 1;
 	}
 	return;
 }
 
 
-int main(void) {
-	confPin();
+int main(void){
 	pwm_generator(50);
-	dac_config();
-	dma_config();
 	uart_config();
 	adc_config();
 	timer_config();
-	eint_config();
+
+
+	//GPDMA_ChannelCmd(1, DISABLE);
+	//eint_config();
 	while (1){
-			for(int i = 0; i < 100000000; i++){
-				int i =0;
-			}
+//			for(int i = 0; i < 100000000; i++){
+//				int i =0;
+//			}
 		}
     return 0;
 }
