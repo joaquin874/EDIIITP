@@ -397,7 +397,7 @@ END GROUP
                 0x0000000020084000                __top_RamAHB32 = 0x20084000
                 0x0000000020084000                __top_RAM2 = 0x20084000
 
-.text           0x0000000000000000     0x11b0
+.text           0x0000000000000000     0x11a8
  FILL mask 0xff
                 0x0000000000000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -406,10 +406,10 @@ END GROUP
                 0x00000000000000cc                . = ALIGN (0x4)
                 0x00000000000000cc                __section_table_start = .
                 0x00000000000000cc                __data_section_table = .
-                0x00000000000000cc        0x4 LONG 0x11b0 LOADADDR (.data)
+                0x00000000000000cc        0x4 LONG 0x11a8 LOADADDR (.data)
                 0x00000000000000d0        0x4 LONG 0x10000000 ADDR (.data)
                 0x00000000000000d4        0x4 LONG 0x24 SIZEOF (.data)
-                0x00000000000000d8        0x4 LONG 0x11b0 LOADADDR (.data_RAM2)
+                0x00000000000000d8        0x4 LONG 0x11a8 LOADADDR (.data_RAM2)
                 0x00000000000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
                 0x00000000000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
                 0x00000000000000e4                __data_section_table_end = .
@@ -487,158 +487,161 @@ END GROUP
                 0x000000000000037c       0x60 ./src/TPFinal.o
                 0x000000000000037c                adc_config
  .text.dac_config_buzzer
-                0x00000000000003dc       0x58 ./src/TPFinal.o
+                0x00000000000003dc       0x54 ./src/TPFinal.o
                 0x00000000000003dc                dac_config_buzzer
  .text.timer_config
-                0x0000000000000434       0x74 ./src/TPFinal.o
-                0x0000000000000434                timer_config
+                0x0000000000000430       0x74 ./src/TPFinal.o
+                0x0000000000000430                timer_config
  .text.dma_config_buzzer
-                0x00000000000004a8       0x68 ./src/TPFinal.o
-                0x00000000000004a8                dma_config_buzzer
+                0x00000000000004a4       0x68 ./src/TPFinal.o
+                0x00000000000004a4                dma_config_buzzer
  .text.uart_config
-                0x0000000000000510       0x60 ./src/TPFinal.o
-                0x0000000000000510                uart_config
+                0x000000000000050c       0x60 ./src/TPFinal.o
+                0x000000000000050c                uart_config
  .text.EINT0_IRQHandler
-                0x0000000000000570       0x48 ./src/TPFinal.o
-                0x0000000000000570                EINT0_IRQHandler
+                0x000000000000056c       0x48 ./src/TPFinal.o
+                0x000000000000056c                EINT0_IRQHandler
  .text.ADC_IRQHandler
-                0x00000000000005b8       0x70 ./src/TPFinal.o
-                0x00000000000005b8                ADC_IRQHandler
- .text.main     0x0000000000000628       0x1a ./src/TPFinal.o
-                0x0000000000000628                main
- *fill*         0x0000000000000642        0x2 ff
+                0x00000000000005b4       0x60 ./src/TPFinal.o
+                0x00000000000005b4                ADC_IRQHandler
+ .text.main     0x0000000000000614       0x1a ./src/TPFinal.o
+                0x0000000000000614                main
+ *fill*         0x000000000000062e        0x2 ff
  .text.SystemInit
-                0x0000000000000644       0xd8 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
-                0x0000000000000644                SystemInit
+                0x0000000000000630       0xd8 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+                0x0000000000000630                SystemInit
  .text.ADC_Init
-                0x000000000000071c       0x58 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x000000000000071c                ADC_Init
+                0x0000000000000708       0x58 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000708                ADC_Init
  .text.ADC_StartCmd
-                0x0000000000000774       0x3c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x0000000000000774                ADC_StartCmd
+                0x0000000000000760       0x3c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000760                ADC_StartCmd
  .text.ADC_PowerdownCmd
-                0x00000000000007b0       0x30 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x00000000000007b0                ADC_PowerdownCmd
+                0x000000000000079c       0x30 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x000000000000079c                ADC_PowerdownCmd
  .text.ADC_EdgeStartConfig
-                0x00000000000007e0       0x48 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x00000000000007e0                ADC_EdgeStartConfig
+                0x00000000000007cc       0x48 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x00000000000007cc                ADC_EdgeStartConfig
  .text.ADC_IntConfig
-                0x0000000000000828       0x44 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x0000000000000828                ADC_IntConfig
+                0x0000000000000814       0x44 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000814                ADC_IntConfig
  .text.ADC_ChannelCmd
-                0x000000000000086c       0x34 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
-                0x000000000000086c                ADC_ChannelCmd
+                0x0000000000000858       0x34 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x0000000000000858                ADC_ChannelCmd
  .text.CLKPWR_GetPCLKSEL
-                0x00000000000008a0       0x20 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000000000008a0                CLKPWR_GetPCLKSEL
+                0x000000000000088c       0x20 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x000000000000088c                CLKPWR_GetPCLKSEL
  .text.CLKPWR_GetPCLK
-                0x00000000000008c0       0x20 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000000000008c0                CLKPWR_GetPCLK
+                0x00000000000008ac       0x20 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x00000000000008ac                CLKPWR_GetPCLK
  .text.CLKPWR_ConfigPPWR
-                0x00000000000008e0       0x34 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
-                0x00000000000008e0                CLKPWR_ConfigPPWR
+                0x00000000000008cc       0x34 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x00000000000008cc                CLKPWR_ConfigPPWR
  .text.DAC_Init
-                0x0000000000000914       0x24 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
-                0x0000000000000914                DAC_Init
+                0x0000000000000900       0x24 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x0000000000000900                DAC_Init
  .text.DAC_ConfigDAConverterControl
-                0x0000000000000938       0x4c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
-                0x0000000000000938                DAC_ConfigDAConverterControl
+                0x0000000000000924       0x4c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x0000000000000924                DAC_ConfigDAConverterControl
  .text.DAC_SetDMATimeOut
-                0x0000000000000984       0x24 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
-                0x0000000000000984                DAC_SetDMATimeOut
+                0x0000000000000970       0x24 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x0000000000000970                DAC_SetDMATimeOut
  .text.GPDMA_Init
-                0x00000000000009a8       0x38 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x00000000000009a8                GPDMA_Init
+                0x0000000000000994       0x38 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+                0x0000000000000994                GPDMA_Init
  .text.GPDMA_Setup
-                0x00000000000009e0      0x1d4 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x00000000000009e0                GPDMA_Setup
+                0x00000000000009cc      0x1d4 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+                0x00000000000009cc                GPDMA_Setup
  .text.GPDMA_ChannelCmd
-                0x0000000000000bb4       0x1c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x0000000000000bb4                GPDMA_ChannelCmd
+                0x0000000000000ba0       0x1c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+                0x0000000000000ba0                GPDMA_ChannelCmd
  .text.check_failed
-                0x0000000000000bd0        0x2 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
-                0x0000000000000bd0                check_failed
- *fill*         0x0000000000000bd2        0x2 ff
+                0x0000000000000bbc        0x2 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+                0x0000000000000bbc                check_failed
+ *fill*         0x0000000000000bbe        0x2 ff
  .text.PINSEL_ConfigPin
-                0x0000000000000bd4       0x7c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
-                0x0000000000000bd4                PINSEL_ConfigPin
+                0x0000000000000bc0       0x7c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+                0x0000000000000bc0                PINSEL_ConfigPin
  .text.UART_Init
-                0x0000000000000c50      0x28c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000c50                UART_Init
+                0x0000000000000c3c      0x28c /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000c3c                UART_Init
  .text.UART_ConfigStructInit
-                0x0000000000000edc       0x12 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000edc                UART_ConfigStructInit
- *fill*         0x0000000000000eee        0x2 ff
+                0x0000000000000ec8       0x12 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000ec8                UART_ConfigStructInit
+ *fill*         0x0000000000000eda        0x2 ff
  .text.UART_SendByte
-                0x0000000000000ef0       0x40 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000ef0                UART_SendByte
+                0x0000000000000edc       0x40 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000edc                UART_SendByte
  .text.UART_Send
-                0x0000000000000f30       0x7e /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000f30                UART_Send
- *fill*         0x0000000000000fae        0x2 ff
+                0x0000000000000f1c       0x7e /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000f1c                UART_Send
+ *fill*         0x0000000000000f9a        0x2 ff
  .text.UART_FIFOConfig
-                0x0000000000000fb0       0xa8 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000000fb0                UART_FIFOConfig
+                0x0000000000000f9c       0xa8 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000000f9c                UART_FIFOConfig
  .text.UART_FIFOConfigStructInit
-                0x0000000000001058        0xe /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000001058                UART_FIFOConfigStructInit
- *fill*         0x0000000000001066        0x2 ff
+                0x0000000000001044        0xe /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000001044                UART_FIFOConfigStructInit
+ *fill*         0x0000000000001052        0x2 ff
  .text.UART_TxCmd
-                0x0000000000001068       0x84 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x0000000000001068                UART_TxCmd
+                0x0000000000001054       0x84 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x0000000000001054                UART_TxCmd
  .text.__weak_main
-                0x00000000000010ec        0x4 /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
-                0x00000000000010ec                __main
-                0x00000000000010ec                __weak_main
+                0x00000000000010d8        0x4 /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_c.a(__weak__main.o)
+                0x00000000000010d8                __main
+                0x00000000000010d8                __weak_main
  *(.rodata .rodata.* .constdata .constdata.*)
+ .rodata.ADC_IRQHandler.str1.4
+                0x00000000000010dc        0x9 ./src/TPFinal.o
  .rodata.ADC_Init.str1.1
-                0x00000000000010f0        0xe /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+                0x00000000000010e5        0xe /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
  .rodata.CSWTCH.5
-                0x00000000000010fe        0x4 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+                0x00000000000010f3        0x4 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
  .rodata.DAC_Init.str1.1
-                0x0000000000001102        0xe /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+                0x00000000000010f7        0xe /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
  .rodata.GPDMA_LUTPerWid
-                0x0000000000001110       0x18 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x0000000000001110                GPDMA_LUTPerWid
+                0x0000000000001105       0x18 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+                0x0000000000001105                GPDMA_LUTPerWid
  .rodata.GPDMA_LUTPerBurst
-                0x0000000000001128       0x18 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x0000000000001128                GPDMA_LUTPerBurst
+                0x000000000000111d       0x18 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+                0x000000000000111d                GPDMA_LUTPerBurst
+ *fill*         0x0000000000001135        0x3 ff
  .rodata.GPDMA_LUTPerAddr
-                0x0000000000001140       0x60 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
-                0x0000000000001140                GPDMA_LUTPerAddr
+                0x0000000000001138       0x60 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+                0x0000000000001138                GPDMA_LUTPerAddr
  .rodata.UART_Init.str1.1
-                0x00000000000011a0        0xf /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
-                0x00000000000011b0                . = ALIGN (0x4)
- *fill*         0x00000000000011af        0x1 ff
+                0x0000000000001198        0xf /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+                0x00000000000011a8                . = ALIGN (0x4)
+ *fill*         0x00000000000011a7        0x1 ff
 
-.glue_7         0x00000000000011b0        0x0
- .glue_7        0x00000000000011b0        0x0 linker stubs
+.glue_7         0x00000000000011a8        0x0
+ .glue_7        0x00000000000011a8        0x0 linker stubs
 
-.glue_7t        0x00000000000011b0        0x0
- .glue_7t       0x00000000000011b0        0x0 linker stubs
+.glue_7t        0x00000000000011a8        0x0
+ .glue_7t       0x00000000000011a8        0x0 linker stubs
 
-.vfp11_veneer   0x00000000000011b0        0x0
- .vfp11_veneer  0x00000000000011b0        0x0 linker stubs
+.vfp11_veneer   0x00000000000011a8        0x0
+ .vfp11_veneer  0x00000000000011a8        0x0 linker stubs
 
-.v4_bx          0x00000000000011b0        0x0
- .v4_bx         0x00000000000011b0        0x0 linker stubs
+.v4_bx          0x00000000000011a8        0x0
+ .v4_bx         0x00000000000011a8        0x0 linker stubs
 
-.iplt           0x00000000000011b0        0x0
- .iplt          0x00000000000011b0        0x0 ./src/TPFinal.o
+.iplt           0x00000000000011a8        0x0
+ .iplt          0x00000000000011a8        0x0 ./src/TPFinal.o
 
-.rel.dyn        0x00000000000011b0        0x0
- .rel.iplt      0x00000000000011b0        0x0 ./src/TPFinal.o
+.rel.dyn        0x00000000000011a8        0x0
+ .rel.iplt      0x00000000000011a8        0x0 ./src/TPFinal.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x00000000000011b0        0x0
-                0x00000000000011b0                __exidx_start = .
+.ARM.exidx      0x00000000000011a8        0x0
+                0x00000000000011a8                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000000000011b0                __exidx_end = .
-                0x00000000000011b0                _etext = .
+                0x00000000000011a8                __exidx_end = .
+                0x00000000000011a8                _etext = .
 
-.data_RAM2      0x000000002007c000        0x0 load address 0x00000000000011b0
+.data_RAM2      0x000000002007c000        0x0 load address 0x00000000000011a8
  FILL mask 0xff
                 [!provide]                        PROVIDE (__start_data_RAM2 = .)
                 [!provide]                        PROVIDE (__start_data_RamAHB32 = .)
@@ -659,7 +662,7 @@ END GROUP
                 0x0000000010000000                . = ALIGN (0x4)
                 0x0000000010000000                _end_uninit_RESERVED = .
 
-.data           0x0000000010000000       0x24 load address 0x00000000000011b0
+.data           0x0000000010000000       0x24 load address 0x00000000000011a8
  FILL mask 0xff
                 0x0000000010000000                _data = .
                 [!provide]                        PROVIDE (__start_data_RAM = .)
@@ -681,7 +684,7 @@ END GROUP
                 [!provide]                        PROVIDE (__end_data_RAM = .)
                 [!provide]                        PROVIDE (__end_data_RamLoc32 = .)
 
-.igot.plt       0x0000000010000024        0x0 load address 0x00000000000011d4
+.igot.plt       0x0000000010000024        0x0 load address 0x00000000000011cc
  .igot.plt      0x0000000010000024        0x0 ./src/TPFinal.o
 
 .bss_RAM2       0x000000002007c000        0x0
@@ -735,23 +738,23 @@ END GROUP
                 0x0000000010008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
                 0xffffffffefff749e                PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
                 0x0000000000000000                _image_start = LOADADDR (.text)
-                0x00000000000011d4                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x00000000000011d4                _image_size = (_image_end - _image_start)
+                0x00000000000011cc                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x00000000000011cc                _image_size = (_image_end - _image_start)
 OUTPUT(TPFinal.axf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x0000000000000000     0x5e61
- .debug_info    0x0000000000000000     0x1310 ./src/TPFinal.o
- .debug_info    0x0000000000001310      0x278 ./src/cr_startup_lpc175x_6x.o
- .debug_info    0x0000000000001588       0x41 ./src/crp.o
- .debug_info    0x00000000000015c9      0x302 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_info    0x00000000000018cb      0x8ae /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
- .debug_info    0x0000000000002179      0x64b /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_info    0x00000000000027c4      0x37e /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_info    0x0000000000002b42     0x1063 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_info    0x0000000000003ba5       0xcf /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_info    0x0000000000003c74      0x518 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_info    0x000000000000418c     0x1cd5 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+.debug_info     0x0000000000000000     0x5e54
+ .debug_info    0x0000000000000000     0x1303 ./src/TPFinal.o
+ .debug_info    0x0000000000001303      0x278 ./src/cr_startup_lpc175x_6x.o
+ .debug_info    0x000000000000157b       0x41 ./src/crp.o
+ .debug_info    0x00000000000015bc      0x302 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_info    0x00000000000018be      0x8ae /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+ .debug_info    0x000000000000216c      0x64b /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_info    0x00000000000027b7      0x37e /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_info    0x0000000000002b35     0x1063 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_info    0x0000000000003b98       0xcf /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+ .debug_info    0x0000000000003c67      0x518 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+ .debug_info    0x000000000000417f     0x1cd5 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
 
 .debug_abbrev   0x0000000000000000     0x1417
  .debug_abbrev  0x0000000000000000      0x37f ./src/TPFinal.o
@@ -853,18 +856,18 @@ LOAD linker stubs
  .debug_macro   0x0000000000004072       0x9f /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
  .debug_macro   0x0000000000004111      0x334 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
 
-.debug_line     0x0000000000000000     0x3b07
- .debug_line    0x0000000000000000      0x68c ./src/TPFinal.o
- .debug_line    0x000000000000068c      0x162 ./src/cr_startup_lpc175x_6x.o
- .debug_line    0x00000000000007ee       0xb5 ./src/crp.o
- .debug_line    0x00000000000008a3      0x412 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
- .debug_line    0x0000000000000cb5      0x6fa /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
- .debug_line    0x00000000000013af      0x468 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
- .debug_line    0x0000000000001817      0x428 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
- .debug_line    0x0000000000001c3f      0x645 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
- .debug_line    0x0000000000002284      0x20f /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
- .debug_line    0x0000000000002493      0x382 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
- .debug_line    0x0000000000002815     0x12f2 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
+.debug_line     0x0000000000000000     0x3b02
+ .debug_line    0x0000000000000000      0x687 ./src/TPFinal.o
+ .debug_line    0x0000000000000687      0x162 ./src/cr_startup_lpc175x_6x.o
+ .debug_line    0x00000000000007e9       0xb5 ./src/crp.o
+ .debug_line    0x000000000000089e      0x412 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(system_LPC17xx.o)
+ .debug_line    0x0000000000000cb0      0x6fa /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_adc.o)
+ .debug_line    0x00000000000013aa      0x468 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_clkpwr.o)
+ .debug_line    0x0000000000001812      0x428 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_dac.o)
+ .debug_line    0x0000000000001c3a      0x645 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_gpdma.o)
+ .debug_line    0x000000000000227f      0x20f /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_libcfg_default.o)
+ .debug_line    0x000000000000248e      0x382 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_pinsel.o)
+ .debug_line    0x0000000000002810     0x12f2 /home/santi/Documents/CMSIS_workspace/CMSISv2p00_LPC17xx/Debug/libCMSISv2p00_LPC17xx.a(lpc17xx_uart.o)
 
 .debug_str      0x0000000000000000     0xf84d
  .debug_str     0x0000000000000000     0xce5a ./src/TPFinal.o

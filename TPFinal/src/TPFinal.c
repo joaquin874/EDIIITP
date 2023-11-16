@@ -38,6 +38,7 @@ void pwm_generator(uint8_t duty_cycle){
         }
     }
 }
+
 /**
  * Generates a PWM signal by
  * Based on the state value, this function writes a 1 or a 0 to the memory address
@@ -133,14 +134,27 @@ void dac_config_buzzer(void){
 	PinCfg.Pinnum = 26;
 	PinCfg.Portnum = 0;
 	PINSEL_ConfigPin(&PinCfg);
-	uint32_t tmp;
+	//uint32_t tmp;
 	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
 	DAC_ConverterConfigStruct.CNT_ENA =SET;
 	DAC_ConverterConfigStruct.DMA_ENA = SET;
 	DAC_Init(LPC_DAC);
 	/* set time out for DAC*/
-	tmp = (PCLK_DAC_IN_MHZ*1000000)/(1*SAMPLES);
-	DAC_SetDMATimeOut(LPC_DAC,tmp);
+	//tmp = (PCLK_DAC_IN_MHZ*1000000)/(1*SAMPLES);
+	//DAC_SetDMATimeOut(LPC_DAC,tmp);
+
+	/*
+    si quiero una senial de 1000Hz
+    el tiempo de cada periodo es de 1ms
+    el tiempo de cada muestra es de 10us
+    1 cuenta ---- 1x10^-8seg
+    x cuentas ---- 10x10^-6seg
+    x = 1000
+    entonces debo sacar una nueva muestra de la senial
+    cada 1000 cuentas, que son 10x10^-6seg = 10us
+	 */
+
+	DAC_SetDMATimeOut(LPC_DAC,1000);
 	DAC_ConfigDAConverterControl(LPC_DAC, &DAC_ConverterConfigStruct);
 	return;
 }
@@ -302,10 +316,10 @@ void ADC_IRQHandler(void){
 		uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
 		static int i = 0;
 		if(water_level < 300){
-			uint8_t string[] = {0x35};
+			uint8_t string[] = "refill\n\r";
 			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+//			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+//			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 
 			//dac_config_buzzer();
 			dac_config_buzzer();
