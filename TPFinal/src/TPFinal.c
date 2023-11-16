@@ -20,6 +20,7 @@
 
 uint32_t dac_pwm[SAMPLES];
 uint32_t dac_pwm_sg90[SAMPLES*5];
+uint8_t uart_flag = 0;
 
 /**
  * Generates a PWM signal
@@ -314,22 +315,58 @@ void EINT0_IRQHandler(void){
 void ADC_IRQHandler(void){
 	if(LPC_ADC->ADDR1 & (1<<31)){
 		uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
-		static int i = 0;
-		if(water_level < 300){
-			uint8_t string[] = "refill\n\r";
-			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-//			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-//			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 
-			//dac_config_buzzer();
-			dac_config_buzzer();
-			dma_config_buzzer();
-				//GPDMA_ChannelCmd(0, ENABLE);
+		GPDMA_ChannelCmd(7,DISABLE);
+
+		if(water_level < 70){
+			uint8_t string0[] = "Nivel de agua: 5%\n\r";
+			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+			if(uart_flag == 0){
+				dac_config_buzzer();
+				dma_config_buzzer();
+			}
 		}
-		else {
-			GPDMA_ChannelCmd(7,DISABLE);
+
+		else if(water_level < 255){
+			uint8_t string0[] = "Nivel de agua: 25%\n\r";
+			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+			if(uart_flag == 1){
+				dac_config_buzzer();
+				dma_config_buzzer();
+			}
 		}
-	//LPC_ADC->ADINTEN |= 1;
+		else if(water_level < 511){
+			uint8_t string0[] = "Nivel de agua: 25%\n\r";
+			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+			if(uart_flag == 2){
+				dac_config_buzzer();
+				dma_config_buzzer();
+			}
+		}
+		else if(water_level < 767){
+			uint8_t string0[] = "Nivel de agua: 50%\n\r";
+			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+			if(uart_flag == 3){
+				dac_config_buzzer();
+				dma_config_buzzer();
+			}
+		}
+		else if(water_level < 950){
+			uint8_t string0[] = "Nivel de agua: 75%\n\r";
+			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+			if(uart_flag == 4){
+				dac_config_buzzer();
+				dma_config_buzzer();
+			}
+		}
+		else if(water_level > 950){
+			uint8_t string0[] = "Nivel de agua: 100%\n\r";
+			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+			if(uart_flag == 5){
+				dac_config_buzzer();
+				dma_config_buzzer();
+			}
+		}
 	}
 	return;
 }
