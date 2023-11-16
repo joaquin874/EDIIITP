@@ -304,13 +304,16 @@ void ADC_IRQHandler(void){
 		if(water_level < 300){
 			uint8_t string[] = {0x35};
 			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-			//dac_config_buzzer();
-			if(i == 0){
-				dac_config_buzzer();
-				dma_config_buzzer();
-				//GPDMA_ChannelCmd(0, ENABLE);
-			}
+			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
+			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 
+			//dac_config_buzzer();
+			dac_config_buzzer();
+			dma_config_buzzer();
+				//GPDMA_ChannelCmd(0, ENABLE);
+		}
+		else {
+			GPDMA_ChannelCmd(7,DISABLE);
 		}
 	//LPC_ADC->ADINTEN |= 1;
 	}
