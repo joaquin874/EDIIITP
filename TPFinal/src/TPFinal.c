@@ -17,7 +17,10 @@
 #define SAMPLES 100
 #define PCLK_DAC_IN_MHZ 25
 
+uint8_t error[] = "Error\n\r";
+uint8_t msg[] = "Recibido, cambiando nivel\n\r";
 
+uint16_t threshold = 30;
 uint32_t dac_pwm[SAMPLES];
 uint32_t dac_pwm_sg90[SAMPLES*5];
 
@@ -274,9 +277,12 @@ void uart_config(){
     UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
     UART_FIFOConfig(LPC_UART3, &UARTFIFOConfigStruct);
 	UART_TxCmd(LPC_UART3, ENABLE);
+	UART_IntConfig(LPC_UART3, UART_INTCFG_RBR, ENABLE);
+	UART_IntConfig(LPC_UART3, UART_INTCFG_RLS, ENABLE);
+	NVIC_SetPriority(UART3_IRQn, 0);
+	NVIC_EnableIRQ(UART3_IRQn);
 	return;
 }
-
 
 /**
  * Interrupt handler for External Interrupt 0 (EINT0)
@@ -301,7 +307,7 @@ void ADC_IRQHandler(void){
 	if(LPC_ADC->ADDR1 & (1<<31)){
 		uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
 		static int i = 0;
-		if(water_level < 300){
+		if(water_level < (threshold*10)){
 			uint8_t string[] = {0x35};
 			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
 			//dac_config_buzzer();
@@ -317,6 +323,47 @@ void ADC_IRQHandler(void){
 	return;
 }
 
+void UART3_IRQHandler(void){
+	uint32_t intsrc, tmp, tmp1;
+	static uint8_t counter;
+	intsrc = UART_GetIntId(LPC_UART2);
+	tmp = intsrc & UART_IIR_INTID_MASK;
+
+	if(tmp == UART_IIR_INTID_RLS){
+		tmp1 = UART_GetLineStatus(LPC_UART3);
+		tmp1 &= (UART_LSR_OE | UART_LSR_PE | UART_LSR_FE | UART_LSR_BI | UART_LSR_RXFE);
+		if(tmp1){
+			UART_Send(LPC_UART3, error, sizeof(error), NONE_BLOCKING);			//UART error handling code
+		}
+	}
+
+	if((tmp == UART_IIR_INTID_RDA) || (tmp == UART_IIR_INTID_CTI)){
+		UART_Receive(LPC_UART2, threshold, sizeof(threshold), NONE_BLOCKING);
+		UART_Send(LPC_UART2, msg, sizeof(msg), NONE_BLOCKING);
+//		uartPassword[counter] = received[0];
+//		counter ++;
+//		if(counter == 4){
+//			counter = 0;
+//			for(uint8_t i = 0; i < 4; i++){
+//				if(password[i] != uartPassword[i])
+//					return;
+//			}
+//			if(status == OFF){
+//				status = ACTIVE;
+//				UART_Send(LPC_UART2, message2, sizeof(message2), NONE_BLOCKING);
+//			}
+//			else{
+//				status = OFF;
+//				UART_Send(LPC_UART2, message1, sizeof(message1), NONE_BLOCKING);
+//				GPDMA_ChannelCmd(0,DISABLE);
+//				DAC_UpdateValue(LPC_DAC, 0);
+//			}
+//
+//		}
+
+	}
+	return;
+}
 
 int main(void){
 	pwm_generator(50);
