@@ -1,7 +1,3 @@
-/*
- * TP FINAL EDII
- */
-
 #include "LPC17xx.h"
 #include "lpc17xx_gpdma.h"
 #include "lpc17xx_adc.h"
@@ -17,10 +13,12 @@
 #define SAMPLES 100
 #define PCLK_DAC_IN_MHZ 25
 
-
+uint8_t error[] = "Error\n\r";
+uint8_t msg[] = "Recibido, cambiando nivel\n\r";
+uint32_t umbral = 30;
+uint8_t info[1] = "";
 uint32_t dac_pwm[SAMPLES];
 uint32_t dac_pwm_sg90[SAMPLES*5];
-uint8_t uart_flag = 0;
 
 /**
  * Generates a PWM signal
@@ -278,24 +276,42 @@ void dma_config_sg90(void){
  * Configures UART2 to enable communication through TXD3 and RXD3 pins.
  */
 void uart_config(){
-    LPC_PINCON->PINSEL0 |= 0x02; //TXD3
-    LPC_PINCON->PINSEL0 |= (0x02<<2); //RXD3
-    UART_CFG_Type UARTConfigStruct;
-    UART_FIFO_CFG_Type UARTFIFOConfigStruct;
-    UART_ConfigStructInit(&UARTConfigStruct);
+	PINSEL_CFG_Type PinCfg;
+	//configuraci�n pin de Tx y Rx
+	PinCfg.Funcnum = 1;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Pinnum = 10;
+	PinCfg.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg);
+	PinCfg.Pinnum = 11;
+	PINSEL_ConfigPin(&PinCfg); //receptor
 
-    UART_Init(LPC_UART3, &UARTConfigStruct);
-
-    UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
-    UART_FIFOConfig(LPC_UART3, &UARTFIFOConfigStruct);
-	UART_TxCmd(LPC_UART3, ENABLE);
+	UART_CFG_Type      UARTConfigStruct;
+	UART_FIFO_CFG_Type UARTFIFOConfigStruct;
+	//configuraci�n por defecto:
+	UART_ConfigStructInit(&UARTConfigStruct);
+	//inicializa perif�rico
+	UART_Init(LPC_UART2, &UARTConfigStruct);
+	//Inicializa FIFO
+	UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
+	UART_FIFOConfig(LPC_UART2, &UARTFIFOConfigStruct);
+	UART_TxCmd(LPC_UART2, ENABLE);
+	// Habilita interrupci�n por el RX del UART
+	UART_IntConfig(LPC_UART2, UART_INTCFG_RBR, ENABLE);
+	// Habilita interrupci�n por el estado de la linea UART
+	UART_IntConfig(LPC_UART2, UART_INTCFG_RLS, ENABLE);
+	//NVIC_SetPriority(UART2_IRQn, 1);
+	//Habilita interrupci�n por UART2
+	NVIC_EnableIRQ(UART2_IRQn);
 	return;
 }
 
 
+
 /**
  * Interrupt handler for External Interrupt 0 (EINT0)
- * 
+ *
  * This function toggles the power state of the ADC module on every interrupt trigger.
  */
 void EINT0_IRQHandler(void){
@@ -312,60 +328,114 @@ void EINT0_IRQHandler(void){
 }
 
 //
+//void ADC_IRQHandler(void){
+//	if(LPC_ADC->ADDR1 & (1<<31)){
+//		uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
+//		static uint8_t i = 0;
+//		if(i!=0){
+//			GPDMA_ChannelCmd(7,DISABLE);
+//		}
+//
+//		if(water_level < 70){
+//			uint8_t string0[] = "Nivel de agua: 5%\n\r";
+//			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+//			if(uart_flag == 0){
+//				dac_config_buzzer();
+//				dma_config_buzzer();
+//			}
+//		}
+//
+//		else if(water_level < 255){
+//			uint8_t string0[] = "Nivel de agua: 25%\n\r";
+//			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+//			if(uart_flag == 1){
+//				dac_config_buzzer();
+//				dma_config_buzzer();
+//			}
+//		}
+//		else if(water_level < 511){
+//			uint8_t string0[] = "Nivel de agua: 25%\n\r";
+//			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+//			if(uart_flag == 2){
+//				dac_config_buzzer();
+//				dma_config_buzzer();
+//			}
+//		}
+//		else if(water_level < 767){
+//			uint8_t string0[] = "Nivel de agua: 50%\n\r";
+//			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+//			if(uart_flag == 3){
+//				dac_config_buzzer();
+//				dma_config_buzzer();
+//			}
+//		}
+//		else if(water_level < 950){
+//			uint8_t string0[] = "Nivel de agua: 75%\n\r";
+//			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+//			if(uart_flag == 4){
+//				dac_config_buzzer();
+//				dma_config_buzzer();
+//			}
+//		}
+//		else if(water_level > 950){
+//			uint8_t string0[] = "Nivel de agua: 100%\n\r";
+//			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
+//			if(uart_flag == 5){
+//				dac_config_buzzer();
+//				dma_config_buzzer();
+//			}
+//		}
+//	}
+//	return;
+//}
+
 void ADC_IRQHandler(void){
-	if(LPC_ADC->ADDR1 & (1<<31)){
-		uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
+    if(LPC_ADC->ADDR1 & (1<<31)){
+        uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
+        water_level = 1024-water_level;
+        static int i = 0;
+        uint8_t nivel = water_level/100;
+        if(water_level < umbral){
+            uint8_t string[] = {"Nivel de agua bajo\n\r"};
+            UART_Send(LPC_UART2, string, sizeof(string), BLOCKING);
+            //dac_config_buzzer();
+            if(i == 0){
+                dac_config_buzzer();
+                dma_config_buzzer();
+                //GPDMA_ChannelCmd(0, ENABLE);
+            }
+        }
+		else {
+			GPDMA_ChannelCmd(7,DISABLE);
+		}
+    //LPC_ADC->ADINTEN |= 1;
+    }
+    return;
+}
 
-		GPDMA_ChannelCmd(7,DISABLE);
-
-		if(water_level < 70){
-			uint8_t string0[] = "Nivel de agua: 5%\n\r";
-			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
-			if(uart_flag == 0){
-				dac_config_buzzer();
-				dma_config_buzzer();
-			}
+void UART2_IRQHandler(void){
+	uint32_t intsrc, tmp, tmp1;
+	//Determina la fuente de interrupci�n
+	intsrc = UART_GetIntId(LPC_UART2);
+	tmp = intsrc & UART_IIR_INTID_MASK;
+	// Eval�a Line Status
+	if (tmp == UART_IIR_INTID_RLS){
+		tmp1 = UART_GetLineStatus(LPC_UART2);
+		tmp1 &= (UART_LSR_OE | UART_LSR_PE | UART_LSR_FE \
+				| UART_LSR_BI | UART_LSR_RXFE);
+		// ingresa a un Loop infinito si hay error
+		if (tmp1) {
+			while(1){};
 		}
-
-		else if(water_level < 255){
-			uint8_t string0[] = "Nivel de agua: 25%\n\r";
-			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
-			if(uart_flag == 1){
-				dac_config_buzzer();
-				dma_config_buzzer();
-			}
-		}
-		else if(water_level < 511){
-			uint8_t string0[] = "Nivel de agua: 25%\n\r";
-			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
-			if(uart_flag == 2){
-				dac_config_buzzer();
-				dma_config_buzzer();
-			}
-		}
-		else if(water_level < 767){
-			uint8_t string0[] = "Nivel de agua: 50%\n\r";
-			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
-			if(uart_flag == 3){
-				dac_config_buzzer();
-				dma_config_buzzer();
-			}
-		}
-		else if(water_level < 950){
-			uint8_t string0[] = "Nivel de agua: 75%\n\r";
-			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
-			if(uart_flag == 4){
-				dac_config_buzzer();
-				dma_config_buzzer();
-			}
-		}
-		else if(water_level > 950){
-			uint8_t string0[] = "Nivel de agua: 100%\n\r";
-			UART_Send(LPC_UART3, string0, sizeof(string0), BLOCKING);
-			if(uart_flag == 5){
-				dac_config_buzzer();
-				dma_config_buzzer();
-			}
+	}
+	// Receive Data Available or Character time-out
+	if ((tmp == UART_IIR_INTID_RDA) || (tmp == UART_IIR_INTID_CTI)){
+		UART_Receive(LPC_UART2, info, sizeof(info), NONE_BLOCKING);
+		if(info[0] > 47 && info[0] < 58){
+			UART_Send(LPC_UART2, "El umbral de deteccion es: ", sizeof("El umbral de deteccion es: "), BLOCKING);
+			UART_Send(LPC_UART2, info, sizeof(info), BLOCKING);
+			UART_Send(LPC_UART2, "0%\n\r", sizeof("0%\n\r"), BLOCKING);
+			umbral = (info[0]-48)*100;
 		}
 	}
 	return;
