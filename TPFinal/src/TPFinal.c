@@ -1,7 +1,3 @@
-/*
- * TP FINAL EDII
- */
-
 #include "LPC17xx.h"
 #include "lpc17xx_gpdma.h"
 #include "lpc17xx_adc.h"
@@ -20,9 +16,38 @@
 uint8_t error[] = "Error\n\r";
 uint8_t msg[] = "Recibido, cambiando nivel\n\r";
 
+
 uint16_t threshold = 30;
+
+uint32_t umbral = 30;
+uint8_t info[1] = "";
 uint32_t dac_pwm[SAMPLES];
 uint32_t dac_pwm_sg90[SAMPLES*5];
+
+void pin_config(void){
+	PINSEL_CFG_Type PinCfg;
+	// Config Tx UART2
+	PinCfg.Funcnum = 1;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Pinnum = 10;
+	PinCfg.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg);
+	// Config Rx UART2
+	PinCfg.Pinnum = 11;
+	PINSEL_ConfigPin(&PinCfg);
+	// Config AD0.0
+	PinCfg.Funcnum = 1;
+	PinCfg.Pinmode = 2;
+	PinCfg.Pinnum = 23;
+	PinCfg.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg);
+	// Config DAC
+	PinCfg.Funcnum = 2;
+	PinCfg.Pinmode = 0;
+	PinCfg.Pinnum = 26;
+	PINSEL_ConfigPin(&PinCfg);
+}
 
 /**
  * Generates a PWM signal
@@ -41,65 +66,6 @@ void pwm_generator(uint8_t duty_cycle){
         }
     }
 }
-/**
- * Generates a PWM signal by
- * Based on the state value, this function writes a 1 or a 0 to the memory address
- * 100 times, in order to generate a PWM signal that can variate from a 1% to 100% duty cycle.
- * Servomotor SG90 works on 50Hz ===> T = 20ms
- * Duty Cycle 1ms - 2ms = 5% - 10%
- * state = 1 open
- * state = 0 closed
- */
-void pwm_servo_generator(uint8_t state){
-    if(state == 1){
-        int duty_cycle = 5;
-        for(int i = 0; i < 500; i++){
-            if(i < duty_cycle){
-                dac_pwm_sg90[i] = (1023 << 6);
-            }
-            else{
-        	    dac_pwm_sg90[i] = 0;
-            }
-            if((i+1) % 100 == 0){
-                duty_cycle++;
-            }
-        }
-    }
-    else if(state == 0){
-        int duty_cycle = 10;
-        for(int i = 0; i < 500; i++){
-            if(i < duty_cycle){
-                dac_pwm_sg90[i] = (1023 << 6);
-            }
-            else{
-        	    dac_pwm_sg90[i] = 0;
-            }
-            if((i+1) % 100 == 0){
-                duty_cycle--;
-            }
-        }
-    }
-
-}
-/**
- * Configures external interrupt 0 (EINT0) on pin P2.10.
- * Sets the pin mode to pull-up resistor.
- * Sets the interrupt mode to edge-sensitive.
- * Sets the interrupt polarity to active high.
- * Enables the interrupt in the NVIC.
- */
-void eint_config(){
-    LPC_PINCON->PINSEL4 |= (1<<20); //P2.10 as EINT0
-    LPC_PINCON->PINMODE4 |= (3<<20);
-
-    LPC_SC->EXTMODE = 1;
-    LPC_SC->EXTPOLAR = 1;
-    LPC_SC->EXTINT = 1;
-
-    NVIC_EnableIRQ(EINT0_IRQn);
-    return;
-}
-
 
 /**
  * This function initializes the ADC module with a frequency of 200kHz, disables burst mode,
@@ -107,11 +73,8 @@ void eint_config(){
  * start edge as falling edge.
  */
 void adc_config(void){
-	LPC_PINCON->PINSEL1 |= (1<<16);
-	LPC_PINCON->PINMODE1 |= (2<<16);
-
 	ADC_Init(LPC_ADC, 100000);
-    //ADC_BurstCmd(LPC_ADC, DISABLE);
+    ADC_BurstCmd(LPC_ADC, DISABLE);
     ADC_ChannelCmd(LPC_ADC, 1, ENABLE);
     ADC_StartCmd(LPC_ADC, 4);
     ADC_EdgeStartConfig(LPC_ADC, 0);
@@ -123,69 +86,23 @@ void adc_config(void){
 
  /* Configures the DAC (Digital-to-Analog Converter) to output analog signals through pin P0.26.
  * This function initializes the DAC, sets the clock for the DAC, and enables the DAC counter and DMA.
+ * f_Signal = 1000Hz ===> T_Signal = 1x10^-3 seg
+ * T_Sample = 100Mhz
+ * 1 c ---- 1x10^-8seg
+ * x c ---- 10x10^-6seg
+ * x = 1000
  */
-void dac_config_buzzer(void){
-	PINSEL_CFG_Type PinCfg;
-	/*
-	 * Init DAC pin connect
-	 * AOUT on P0.26
-	 */
-	PinCfg.Funcnum = 2;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 26;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
-	uint32_t tmp;
+void dac_config(void){
+	LPC_SC->PCLKSEL0 |= (1<<22);
 	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
-	DAC_ConverterConfigStruct.CNT_ENA =SET;
+	DAC_ConverterConfigStruct.CNT_ENA = SET;
 	DAC_ConverterConfigStruct.DMA_ENA = SET;
 	DAC_Init(LPC_DAC);
-	/* set time out for DAC*/
-	tmp = (PCLK_DAC_IN_MHZ*1000000)/(1*SAMPLES);
-	DAC_SetDMATimeOut(LPC_DAC,tmp);
+	DAC_SetDMATimeOut(LPC_DAC,1000);
 	DAC_ConfigDAConverterControl(LPC_DAC, &DAC_ConverterConfigStruct);
 	return;
 }
 
-void dac_config_s90(void){
-	PINSEL_CFG_Type PinCfg;
-		/*
-		 * Init DAC pin connect
-		 * AOUT on P0.26
-		 */
-	PinCfg.Funcnum = 2;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 26;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
-	uint32_t tmp;
-	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
-	DAC_ConverterConfigStruct.CNT_ENA =SET;
-	DAC_ConverterConfigStruct.DMA_ENA = SET;
-	DAC_Init(LPC_DAC);
-	/* set time out for DAC*/
-	tmp = (PCLK_DAC_IN_MHZ*1000000)/(50*SAMPLES);
-	DAC_SetDMATimeOut(LPC_DAC,tmp);
-	DAC_ConfigDAConverterControl(LPC_DAC, &DAC_ConverterConfigStruct);
-	return;
-}
-
-void confPin(void){
-	PINSEL_CFG_Type PinCfg;
-	/*
-	 * Init DAC pin connect
-	 * AOUT on P0.26
-	 */
-	PinCfg.Funcnum = 2;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 26;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
-	return;
-}
 /**
  * Configures Timer1 with a prescaler of 99 and a match value of 500000.
  * This means the timer will interrupt every 0.5 seconds.
@@ -202,25 +119,24 @@ void timer_config(void){
     LPC_TIM0->MR1 = 30000; //30 Seconds
     LPC_TIM0->MCR |= (1<<4); //Reset on MR1
     LPC_TIM0->EMR |= (3<<6); //Toggle on MR1
-    LPC_TIM0->TCR |= 0x03; //Reseteo y habilito el timer0
-    LPC_TIM0->TCR &=~ 0x02; //Deshabilito el reset del timer0
+    LPC_TIM0->TCR |= 0x03; // Enable and Reset TC
+    LPC_TIM0->TCR &=~ 0x02; // Disable Reset TC
 }
-
 
 /**
  * Configures the DMA controller to transfer data from SRAM0 to the DACR register of the LPC_DAC peripheral.
  * Uses a linked list item (LLI) to define the transfer parameters.
  * Initializes and sets up the GPDMA channel 0 with the defined parameters.
  */
-void dma_config_buzzer(void){
+void dma_config(void){
     GPDMA_LLI_Type LLI;
     LLI.SrcAddr = (uint32_t) &(dac_pwm);
     LLI.DstAddr = (uint32_t) & (LPC_DAC->DACR);
     LLI.NextLLI = (uint32_t) &LLI;
-    LLI.Control = SAMPLES      //transfer size 100 registers
-				|(2<<18)    //source width 32 bits
-				|(2<<21)    //dest width 32 bits
-                |(1<<26);   //source increment
+    LLI.Control = SAMPLES      // Transfer size 100 registers
+				|(2<<18)    // Source width 32 bits
+				|(2<<21)    // Dest width 32 bits
+                |(1<<26);   // Source increment
     GPDMA_Init();
     GPDMA_Channel_CFG_Type GPDMACfg1;
     GPDMACfg1.ChannelNum = 7;
@@ -237,147 +153,102 @@ void dma_config_buzzer(void){
     return;
 }
 
-void dma_config_sg90(void){
-    GPDMA_LLI_Type LLI;
-    LLI.SrcAddr = (uint32_t) &(dac_pwm_sg90);
-    LLI.DstAddr = (uint32_t) & (LPC_DAC->DACR);
-    LLI.NextLLI = (uint32_t) &LLI;
-    LLI.Control = SAMPLES*5      //transfer size 500 registers
-				|(2<<18)    //source width 32 bits
-				|(2<<21)    //dest width 32 bits
-                |(1<<26);   //source increment
-    GPDMA_Init();
-    GPDMA_Channel_CFG_Type GPDMACfg1;
-    GPDMACfg1.ChannelNum = 1;
-	GPDMACfg1.SrcMemAddr = (uint32_t) &(dac_pwm_sg90);
-	GPDMACfg1.DstMemAddr = 0;
-	GPDMACfg1.TransferSize = SAMPLES*5;
-	GPDMACfg1.TransferWidth = 0;
-	GPDMACfg1.TransferType = GPDMA_TRANSFERTYPE_M2P;
-	GPDMACfg1.SrcConn = 0;
-	GPDMACfg1.DstConn = GPDMA_CONN_DAC;
-	GPDMACfg1.DMALLI = (uint32_t)&LLI;
-	GPDMA_Setup(&GPDMACfg1);
-	GPDMA_ChannelCmd(1, ENABLE);
-    return;
-}
-
 /**
  * Configures UART2 to enable communication through TXD3 and RXD3 pins.
  */
 void uart_config(){
-    LPC_PINCON->PINSEL0 |= 0x02; //TXD3
-    LPC_PINCON->PINSEL0 |= (0x02<<2); //RXD3
-    UART_CFG_Type UARTConfigStruct;
-    UART_FIFO_CFG_Type UARTFIFOConfigStruct;
-    UART_ConfigStructInit(&UARTConfigStruct);
-
-    UART_Init(LPC_UART3, &UARTConfigStruct);
-
-    UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
-    UART_FIFOConfig(LPC_UART3, &UARTFIFOConfigStruct);
-	UART_TxCmd(LPC_UART3, ENABLE);
-	UART_IntConfig(LPC_UART3, UART_INTCFG_RBR, ENABLE);
-	UART_IntConfig(LPC_UART3, UART_INTCFG_RLS, ENABLE);
-	NVIC_SetPriority(UART3_IRQn, 0);
-	NVIC_EnableIRQ(UART3_IRQn);
+	UART_CFG_Type      UARTConfigStruct;
+	UART_FIFO_CFG_Type UARTFIFOConfigStruct;
+	// Default config
+	UART_ConfigStructInit(&UARTConfigStruct);
+	// UART2 init
+	UART_Init(LPC_UART2, &UARTConfigStruct);
+	// FIFO init
+	UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
+	UART_FIFOConfig(LPC_UART2, &UARTFIFOConfigStruct);
+	UART_TxCmd(LPC_UART2, ENABLE);
+	// Enable interruption UART RX
+	UART_IntConfig(LPC_UART2, UART_INTCFG_RBR, ENABLE);
+	// Enable interruption by UART state line
+	UART_IntConfig(LPC_UART2, UART_INTCFG_RLS, ENABLE);
+	// Enable UART2 interruption
+	NVIC_EnableIRQ(UART2_IRQn);
 	return;
 }
 
-/**
- * Interrupt handler for External Interrupt 0 (EINT0)
- * 
- * This function toggles the power state of the ADC module on every interrupt trigger.
- */
-void EINT0_IRQHandler(void){
-	static uint16_t mode = 0;
-    if(mode % 2 == 0){
-        ADC_PowerdownCmd(LPC_ADC, DISABLE);
+void ADC_IRQHandler(void){
+    if(LPC_ADC->ADDR1 & (1<<31)){
+        uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
+        water_level = 1024-water_level;
+        static int i = 0;
+        uint8_t nivel = water_level/100;
+        if(water_level < umbral){
+            uint8_t string[] = {"Nivel de agua bajo\n\r"};
+            UART_Send(LPC_UART2, string, sizeof(string), BLOCKING);
+            //dac_config_buzzer();
+            if(i == 0){
+                dac_config();
+                dma_config();
+                //GPDMA_ChannelCmd(0, ENABLE);
+            }
+        }
+		else {
+			GPDMA_ChannelCmd(7,DISABLE);
+		}
+    //LPC_ADC->ADINTEN |= 1;
     }
-    else{
-        ADC_PowerdownCmd(LPC_ADC, ENABLE);
-    }
-    mode++;
-    LPC_SC->EXTINT = 1;
     return;
 }
 
-//
-void ADC_IRQHandler(void){
-	if(LPC_ADC->ADDR1 & (1<<31)){
-		uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
-		static int i = 0;
-		if(water_level < (threshold*10)){
-			uint8_t string[] = {0x35};
-			UART_Send(LPC_UART3, string, sizeof(string), BLOCKING);
-			//dac_config_buzzer();
-			if(i == 0){
-				dac_config_buzzer();
-				dma_config_buzzer();
-				//GPDMA_ChannelCmd(0, ENABLE);
-			}
-
-		}
-	//LPC_ADC->ADINTEN |= 1;
-	}
-	return;
-}
-
-void UART3_IRQHandler(void){
+void UART2_IRQHandler(void){
 	uint32_t intsrc, tmp, tmp1;
-	static uint8_t counter;
+	//Determina la fuente de interrupci�n
 	intsrc = UART_GetIntId(LPC_UART2);
 	tmp = intsrc & UART_IIR_INTID_MASK;
-
-	if(tmp == UART_IIR_INTID_RLS){
-		tmp1 = UART_GetLineStatus(LPC_UART3);
-		tmp1 &= (UART_LSR_OE | UART_LSR_PE | UART_LSR_FE | UART_LSR_BI | UART_LSR_RXFE);
-		if(tmp1){
-			UART_Send(LPC_UART3, error, sizeof(error), NONE_BLOCKING);			//UART error handling code
+	// Eval�a Line Status
+	if (tmp == UART_IIR_INTID_RLS){
+		tmp1 = UART_GetLineStatus(LPC_UART2);
+		tmp1 &= (UART_LSR_OE | UART_LSR_PE | UART_LSR_FE \
+				| UART_LSR_BI | UART_LSR_RXFE);
+		// ingresa a un Loop infinito si hay error
+		if (tmp1) {
+			while(1){};
 		}
 	}
+	// Receive Data Available or Character time-out
+	if ((tmp == UART_IIR_INTID_RDA) || (tmp == UART_IIR_INTID_CTI)){
+		UART_Receive(LPC_UART2, info, sizeof(info), NONE_BLOCKING);
+		if(info[0] > 47 && info[0] < 53){
+			UART_Send(LPC_UART2, "El umbral de deteccion es: ", sizeof("El umbral de deteccion es: "), BLOCKING);
+			UART_Send(LPC_UART2, info, sizeof(info), BLOCKING);
+			UART_Send(LPC_UART2, "/4\n\r", sizeof("/4\n\r"), BLOCKING);
 
-	if((tmp == UART_IIR_INTID_RDA) || (tmp == UART_IIR_INTID_CTI)){
-		UART_Receive(LPC_UART2, threshold, sizeof(threshold), NONE_BLOCKING);
-		UART_Send(LPC_UART2, msg, sizeof(msg), NONE_BLOCKING);
-//		uartPassword[counter] = received[0];
-//		counter ++;
-//		if(counter == 4){
-//			counter = 0;
-//			for(uint8_t i = 0; i < 4; i++){
-//				if(password[i] != uartPassword[i])
-//					return;
-//			}
-//			if(status == OFF){
-//				status = ACTIVE;
-//				UART_Send(LPC_UART2, message2, sizeof(message2), NONE_BLOCKING);
-//			}
-//			else{
-//				status = OFF;
-//				UART_Send(LPC_UART2, message1, sizeof(message1), NONE_BLOCKING);
-//				GPDMA_ChannelCmd(0,DISABLE);
-//				DAC_UpdateValue(LPC_DAC, 0);
-//			}
-//
-//		}
-
+			if(info[0]-48 == 0){
+				umbral = 350;
+			}
+			else if(info[0]-48 == 1){
+				umbral = 700;
+			}
+			else if(info[0]-48 == 2){
+				umbral = 775;
+			}
+			else if(info[0]-48 == 3){
+				umbral = 805;
+			}
+			else if(info[0]-48 == 4){
+				umbral = 830;
+			}
+		}
 	}
 	return;
 }
 
 int main(void){
+	pin_config();
 	pwm_generator(50);
 	uart_config();
 	adc_config();
 	timer_config();
-
-
-	//GPDMA_ChannelCmd(1, DISABLE);
-	//eint_config();
-	while (1){
-//			for(int i = 0; i < 100000000; i++){
-//				int i =0;
-//			}
-		}
+	while (1){}
     return 0;
 }
