@@ -24,6 +24,10 @@ uint8_t info[1] = "";
 uint32_t dac_pwm[SAMPLES];
 uint32_t dac_pwm_sg90[SAMPLES*5];
 
+/**
+ * Config Pins function
+ * Configure all pins (ADC, DAC, UART2)
+ */
 void pin_config(void){
 	PINSEL_CFG_Type PinCfg;
 	// Config Tx UART2
@@ -176,6 +180,7 @@ void uart_config(){
 	return;
 }
 
+
 void ADC_IRQHandler(void){
     if(LPC_ADC->ADDR1 & (1<<31)){
         uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
@@ -185,32 +190,30 @@ void ADC_IRQHandler(void){
         if(water_level < umbral){
             uint8_t string[] = {"Nivel de agua bajo\n\r"};
             UART_Send(LPC_UART2, string, sizeof(string), BLOCKING);
-            //dac_config_buzzer();
             if(i == 0){
                 dac_config();
                 dma_config();
-                //GPDMA_ChannelCmd(0, ENABLE);
             }
+			GPDMA_ChannelCmd(7,ENABLE);
         }
 		else {
 			GPDMA_ChannelCmd(7,DISABLE);
 		}
-    //LPC_ADC->ADINTEN |= 1;
     }
     return;
 }
 
 void UART2_IRQHandler(void){
 	uint32_t intsrc, tmp, tmp1;
-	//Determina la fuente de interrupci�n
+	// Determine the source of interruption
 	intsrc = UART_GetIntId(LPC_UART2);
 	tmp = intsrc & UART_IIR_INTID_MASK;
-	// Eval�a Line Status
+	// Evaluate Line Status
 	if (tmp == UART_IIR_INTID_RLS){
 		tmp1 = UART_GetLineStatus(LPC_UART2);
 		tmp1 &= (UART_LSR_OE | UART_LSR_PE | UART_LSR_FE \
 				| UART_LSR_BI | UART_LSR_RXFE);
-		// ingresa a un Loop infinito si hay error
+		// Enters an infinite loop if there is an error
 		if (tmp1) {
 			while(1){};
 		}
