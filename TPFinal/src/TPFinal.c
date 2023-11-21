@@ -9,20 +9,11 @@
 #include <cr_section_macros.h>
 
 #define SRAM0 0x2007C000
-#define BaudRate 38400
 #define SAMPLES 100
-#define PCLK_DAC_IN_MHZ 25
 
-uint8_t error[] = "Error\n\r";
-uint8_t msg[] = "Recibido, cambiando nivel\n\r";
-
-
-uint16_t threshold = 30;
-
-uint32_t umbral = 30;
+uint32_t umbral = 1023;
 uint8_t info[1] = "";
 uint32_t dac_pwm[SAMPLES];
-uint32_t dac_pwm_sg90[SAMPLES*5];
 
 /**
  * Config Pins function
