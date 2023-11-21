@@ -177,7 +177,6 @@ void ADC_IRQHandler(void){
         uint32_t water_level = (LPC_ADC->ADDR1>>6) & 0x3FF;
         water_level = 1024-water_level;
         static int i = 0;
-        uint8_t nivel = water_level/100;
         if(water_level < umbral){
             uint8_t string[] = {"Nivel de agua bajo\n\r"};
             UART_Send(LPC_UART2, string, sizeof(string), BLOCKING);
@@ -213,9 +212,11 @@ void UART2_IRQHandler(void){
 	if ((tmp == UART_IIR_INTID_RDA) || (tmp == UART_IIR_INTID_CTI)){
 		UART_Receive(LPC_UART2, info, sizeof(info), NONE_BLOCKING);
 		if(info[0] > 47 && info[0] < 53){
-			UART_Send(LPC_UART2, "El umbral de deteccion es: ", sizeof("El umbral de deteccion es: "), BLOCKING);
+			uint8_t msg[] = "El umbral de deteccion es: ";
+			uint8_t msg1[] = "/4\n\r";
+			UART_Send(LPC_UART2, msg, sizeof(msg), BLOCKING);
 			UART_Send(LPC_UART2, info, sizeof(info), BLOCKING);
-			UART_Send(LPC_UART2, "/4\n\r", sizeof("/4\n\r"), BLOCKING);
+			UART_Send(LPC_UART2, msg1, sizeof(msg1), BLOCKING);
 
 			if(info[0]-48 == 0){
 				umbral = 350;
